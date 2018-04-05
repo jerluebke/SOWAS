@@ -55,7 +55,11 @@ Gruppe sieht genau hier große Verbesserungsmöglichkeiten!
 
 Das kommende Projekt soll daher mehr über die Dynamik des Systems herausfinden:
 \\
-Wie steht die Geschwindigkeit einer Dominokette im Zusammenhang mit dem Abstand der Steine, bzw. der Anstoßgeschwindigkeit? Welche Rolle spielt die Anstoßgeschwindigkeit des ersten Steins, stellt sich immer die gleiche Endgeschwindigkeit ein? Wie groß sind die Reibungseinflüsse, wovon hängen sie ab? Was genau passiert beim Übergang von Haft- zu Gleitreibung?
+Wie steht die Geschwindigkeit einer Dominokette im Zusammenhang mit dem Abstand
+der Steine, bzw. der Anstoßgeschwindigkeit? Welche Rolle spielt die
+Anstoßgeschwindigkeit des ersten Steins, stellt sich immer die gleiche
+Endgeschwindigkeit ein? Wie groß sind die Reibungseinflüsse, wovon hängen sie
+ab? Was genau passiert beim Übergang von Haft- zu Gleitreibung?
 
 
 \section{Physikalische Grundlagen}
@@ -65,7 +69,10 @@ Wie steht die Geschwindigkeit einer Dominokette im Zusammenhang mit dem Abstand 
     \caption{Schema}
     \label{abb:1}
 \end{figure}
-Wir betrachten zunächst zwei aufeinanderfolgende Dominosteine wie in (\ref{abb:1}). Geht man davon aus, dass die Dominos nur rotieren können und daher nicht von ihrem Auflagepunkt abweichen, können wir die folgende trigonometrische Beziehung ableiten:
+Wir betrachten zunächst zwei aufeinanderfolgende Dominosteine wie in
+(\ref{abb:1}). Geht man davon aus, dass die Dominos nur rotieren können und
+daher nicht von ihrem Auflagepunkt abweichen, können wir die folgende
+trigonometrische Beziehung ableiten:
 \begin{equation}
     \sin(\Theta_{N-1} - \Theta_{N}) = \frac{c}{b} \cos(\Theta_{N}) - \frac{a}{b}
     \label{eq:1}
@@ -143,24 +150,54 @@ Hintergrund durchgeführt worden sein.
 
 
 \section{Experimentelle und theoretische Vorgehensweise}
-Das Projekt wird sich ungefähr gleich aus einem theoretischen, sowie einem experimentellen Teil zusammensetzen.
+Das Projekt wird sich ungefähr gleich aus einem theoretischen, sowie einem
+experimentellen Teil zusammensetzen.
 
-Im ersten Teil der Durchführung soll eine Simulation erstellt werden, in der Dominosteine mit unendlicher Haftreibung betrachtet werden. Dabei werden die physikalischen Grundlagen genutzt, welche vergangene analytische Betrachtungen bereits lieferten (Siehe dazu Literaturliste).
-Das aufgestellte Modell soll am Ende Antworten auf die folgenden Fragen geben können:
-Wie verhält sich die Geschwindigkeit der Dominokette bei Variation des Abstandes zwischen den Steinen? Erreicht das System immer denselben stationären Zustand, egal mit welcher Anstoßgeschwindigkeit der erste Stein fällt?
+Im ersten Teil der Durchführung soll eine Simulation erstellt werden, in der
+Dominosteine mit unendlicher Haftreibung betrachtet werden. Dabei werden die
+physikalischen Grundlagen genutzt, welche vergangene analytische Betrachtungen
+bereits lieferten (Siehe dazu Literaturliste).
+Das aufgestellte Modell soll am Ende Antworten auf die folgenden Fragen geben
+können:
+Wie verhält sich die Geschwindigkeit der Dominokette bei Variation des
+Abstandes zwischen den Steinen? Erreicht das System immer denselben stationären
+Zustand, egal mit welcher Anstoßgeschwindigkeit der erste Stein fällt?
 
-Ziel dieser Vorgehensweise ist es, zu überprüfen ob die Simulation überhaupt eine physikalische Gültigkeit besitzt. Dazu wird an dieser Stelle das erste Experiment durchgeführt.
+Ziel dieser Vorgehensweise ist es, zu überprüfen ob die Simulation überhaupt
+eine physikalische Gültigkeit besitzt. Dazu wird an dieser Stelle das erste
+Experiment durchgeführt.
 
-Auf einer gummierten Unterlage – diese garantiert einen hohen Haftreibungskoeffizienten – werden Dominosteine in gleichmäßigen Abständen aufgebaut. Die Länge derselben steht zu diesem Zeitpunkt noch nicht fest, da noch nicht bekannt ist, wie lange das System braucht um eine konstante Geschwindigkeit zu erreichen.
-Mithilfe einer selbstgebauten Vorrichtung, wird nun der erste Stein angestoßen und anschließend die Geschwindigkeit der Dominos mithilfe von zwei Lichtschranken bestimmt. Es werden zwei Messreihen durchgeführt.
-In der ersten Reihe wird ein typischer Abstand für einen solchen Aufbau gewählt und dabei die Anstoßgeschwindigkeit variiert. Im Anschluss wird dann die Anstoßgeschwindigkeit konstant gehalten und der Abstand variiert.
+Auf einer gummierten Unterlage – diese garantiert einen hohen
+Haftreibungskoeffizienten – werden Dominosteine in gleichmäßigen Abständen
+aufgebaut. Die Länge derselben steht zu diesem Zeitpunkt noch nicht fest, da
+noch nicht bekannt ist, wie lange das System braucht um eine konstante
+Geschwindigkeit zu erreichen.
+Mithilfe einer selbstgebauten Vorrichtung, wird nun der erste Stein angestoßen
+und anschließend die Geschwindigkeit der Dominos mithilfe von zwei
+Lichtschranken bestimmt. Es werden zwei Messreihen durchgeführt.
+In der ersten Reihe wird ein typischer Abstand für einen solchen Aufbau gewählt
+und dabei die Anstoßgeschwindigkeit variiert. Im Anschluss wird dann die
+Anstoßgeschwindigkeit konstant gehalten und der Abstand variiert.
 
-Ergibt die Auswertung der erhobenen Daten, dass das aufgestellte Modell präzise genug ist, kann selbiges erweitert werden. Die Dominosteine rotieren jetzt nicht mehr um einen festen Punkt. Die Energie der Steine setzt sich zusammen aus einer Translations- sowie Rotationsbewegung. Zusätzlich wird daher der Übergang von Haft- zu Gleitreibung betrachtet.
-Die Erweiterung der Simulation liefert nun einen Aufschluss darüber, wie sich die Steine auf anderen Unterlagen Verhalten.
+Ergibt die Auswertung der erhobenen Daten, dass das aufgestellte Modell präzise
+genug ist, kann selbiges erweitert werden. Die Dominosteine rotieren jetzt nicht
+mehr um einen festen Punkt. Die Energie der Steine setzt sich zusammen aus einer
+Translations- sowie Rotationsbewegung. Zusätzlich wird daher der Übergang von
+Haft- zu Gleitreibung betrachtet.
+Die Erweiterung der Simulation liefert nun einen Aufschluss darüber, wie sich
+die Steine auf anderen Unterlagen Verhalten.
 
-Im letzten Teil der Durchführung werden Experimente, ähnlich wie zuvor, durchgeführt. Der Versuchsaufbau ändert sich grundsätzlich nicht, jedoch werden nun auch die Unterlagen ausgetauscht. Es erscheint sinnvoll hier von sehr glatten, bis zu sehr rauen Oberflächen alles auszuprobieren. Dieses Vorgehen ermöglicht später den Gültigkeitsbereich der gewonnenen Erkenntnisse anzugeben.
+Im letzten Teil der Durchführung werden Experimente, ähnlich wie zuvor,
+durchgeführt. Der Versuchsaufbau ändert sich grundsätzlich nicht, jedoch
+werden nun auch die Unterlagen ausgetauscht. Es erscheint sinnvoll hier von
+sehr glatten, bis zu sehr rauen Oberflächen alles auszuprobieren. Dieses
+Vorgehen ermöglicht später den Gültigkeitsbereich der gewonnenen Erkenntnisse
+anzugeben.
 
-In der Auswertungsphase sollen nun die Ergebnisse diskutiert werden. Hier kann entweder angegeben werden, warum die Simulation keine realitätsnahen Ergebnisse liefert, beziehungsweise, inwiefern die Simulation noch weiter verbessert werden kann.
+In der Auswertungsphase sollen nun die Ergebnisse diskutiert werden. Hier kann
+entweder angegeben werden, warum die Simulation keine realitätsnahen Ergebnisse
+liefert, beziehungsweise, inwiefern die Simulation noch weiter verbessert
+werden kann.
 
 
 \section{Materialliste}
