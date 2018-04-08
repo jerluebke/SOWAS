@@ -43,11 +43,12 @@ items = [
     # item: description, start, duration, domain
     item("Einarbeitung\n in Python", 0, 2, "th"),
     item("Erstellen der\n Simulation", 1, 4, "th"),
-    item("Ergänzung der\n Simulation", 5, 2, "th"),
+    #  item("Ergänzung der\n Simulation", 5, 2, "th"),
     item("Bau der Mess-\n vorrichtung", 0, 2, "ex"),
     item("Aufnahme der\n Messreihen", 2, 4, "ex"),
     item("Anpassung des\n Aufbaus", 6, 3, "ex"),
-    item("Auswertung/\nErstellung des\n Posters", 8, 3, "ev")
+    item("Auswertung der\nDaten", 8, 2, "ev"),
+    item("Erstellung des\nPosters", 10, 1, "ev")
     ]
 
 data_as_array = np.array([[item.start, item.duration] for item in items])
@@ -107,4 +108,5 @@ plt.legend(handles=[Patch(color=c, label=l)
 # allign subplots
 plt.tight_layout()
 
+plt.savefig("timetable.png", format="png", dpi=300)
 plt.savefig("timetable.eps", format="eps", dpi=1000)
