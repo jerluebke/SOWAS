@@ -47,8 +47,8 @@ items = [
     item("Bau der Mess-\n vorrichtung", 0, 2, "ex"),
     item("Aufnahme der\n Messreihen", 2, 4, "ex"),
     item("Anpassung des\n Aufbaus", 6, 3, "ex"),
-    item("Auswertung der\nDaten", 8, 2, "ev"),
-    item("Erstellung des\nPosters", 10, 1, "ev")
+    item("Auswertung der\nDaten", 7, 3, "ev"),
+    item("Erstellung des\nPosters", 8, 11, "ev")
     ]
 
 data_as_array = np.array([[item.start, item.duration] for item in items])
