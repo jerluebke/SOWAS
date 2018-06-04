@@ -1,0 +1,116 @@
+\section*{Mathematische Vorgehensweise \label{MathVorg}}
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{\Roman{equation}}
+
+\subsection{Was ist zu berechnen?}
+\begin{enumerate}
+    \item Spezifische Winkel- und Transversalgeschwindigkeit in Abhängigkeit
+        des Abstandes und der Anzahl der in der Berechnung berücksichtigten
+        Steine:
+        $\dot{\phi}^*(\lambda, N), V^*(\lambda, N)$
+    \item Verlauf von Winkel- und Transversalgeschwindigkeit in Abhängigkeit
+        des Ortes für einen festen Abstand:
+        $\phii = \dot{\phi}(x), V(x)$\\
+        (mit $x = i(\lambda + h)$ für $i \in \{1, \cdots, \text{Anzahl
+        der Steine}\}$)
+\end{enumerate}
+Dabei wird nur der Winkel $\theta_1$ des vordersten fallenden Steins benötigt,
+welcher im Moment des Anstoßens \textit{Null} ist oder beim Integrieren der
+Geschwindigkeiten durch die Integrationsschritte gegeben ist. Die Winkel der
+anderen Steine können rekursiv mit \eqref{eq:geom} berechnet werden. Mit
+diesen Werten kann dann alles weitere berechnet werden; nur den
+Reibungskoeffizienten $\mu$ gilt es durch den Vergleich mit den experimentellen
+Daten zu bestimmen.
+
+\subsection{Gleichungen}
+\subsubsection{Zentrale Gleichungen - Schritt 1}
+\begin{subequations}
+    Spezifische Winkelgeschwindigkeit:
+    \begin{align}
+    \phistar = \omega \sqrt{\left(
+        \frac{\kl-1}{\kl} \right) \left( \frac{2\left[
+    \cos(\phi)-\cos(\hat{\theta}(\lambda)-\phi)\right]}{\kl R^2 -\kl+1} \right)}
+    \end{align}
+\end{subequations}
+
+\begin{subequations}
+    Spezifische Transversalgeschwindigkeit:
+    \begin{align}
+        V^*(\lambda) &= (\lambda + h) / \int_0^\psi
+        \frac{\mathrm{d}\theta}{\thetastar} \\
+        \thetastar &= \phistar \sqrt{\left(
+            \frac{\klt}{\klt-1} \right) \left(
+        1-\frac{1}{\klt}\pkstar\right)}
+    \end{align}
+\end{subequations}
+
+\subsubsection{Zentrale Gleichungen - Schritt 2}
+\begin{subequations}
+    Winkelgeschwindigkeit als Funktion des Ortes:
+    \[
+    \phiip = \frac{\phii}{R}\sqrt{\left(\frac{\kt-1}{\kt}\right)
+    \left(1-\frac{1}{\kt}\pki\right)} \tag{IIIa}
+    \]
+\end{subequations}
+
+\begin{subequations}
+    Transversalgeschwindigkeit als Funktion des Ortes:
+    \begin{align}
+    V(x) &= (\lambda+h)/\int_0^\psi \frac{\mathrm{d}\theta}{\thetai}
+    \\
+    \thetai &= \phii \sqrt{\left(\frac{\kth}{\kth-1}\right)
+    \left(1-\frac{1}{\kth}\pkith\right)}
+    \end{align}
+\end{subequations}
+
+\subsubsection{Hilfsgleichungen}
+\begin{subequations}
+    Verhältnis potentieller und kinetischer Energie:
+    \begin{align}
+        -\pkith &= \frac{2\omega^2}{\phii^2} \left[\cos(\phi) -
+        \cos(\theta-\phi)\right] \\
+        -\pki &= -\left[\pki\right](\theta = \hat{\theta}) \nonumber \\
+        -\pkstar &= -\left[\pki\right](\theta, \phii = \dot{\phi}^*) \nonumber
+    \end{align}
+\end{subequations}
+\begin{subequations}
+    Energieübertragungsrate:
+    \begin{align}
+        \klt &= \displaystyle\sum_{i=1}^N \frac{K_i}{K_1} \nonumber \\
+        &= 1+\displaystyle\sum_{j=1}^N \displaystyle\prod_{i=1}^j
+        \left(\thetas\right)^2 \\
+        \kt &= k(\theta_1 = 0, \lambda) \nonumber
+    \end{align}
+\end{subequations}
+\begin{subequations}\label{eq:geom}
+    Geometrische Zusammenhänge:
+    \begin{align}
+        \thetas &= 1-\left(\frac{\lambda+h}{L}\right)
+        \frac{\sin(\theta_i)}{\cos(\theta_{i+1}-\theta_i)} \\
+        \sin(\theta_{i+1}-\theta_i) &= \left(\frac{\lambda+h}{L}\right)
+        \cos(\theta_i)-\frac{h}{L}
+    \end{align}
+\end{subequations}
+\vspace{\baselineskip}\\
+Der geometrische Koeffizient R in Abhängigkeit des Reibungskoeffizienten
+$\mu$ und der Auftreffhöhe $\xi$:
+\[ R = 1+\frac{\xi + \mu\lambda}{\xi - \mu h} \]
+Der minimale Neigungswinkel für einen instabilen Zustand $\phi$:
+\[ \phi = \arctan(\frac{h}{L}) \]
+Der Auftreffwinkel mit dem nächsten Stein:
+\[ \psi = \arcsin(\frac{\lambda}{L}) \]
+Der Ruhewinkel, wenn alle Steine gefallen sind:
+\[ \hat{\theta} = \arccos(\frac{h}{h+\lambda}) \]
+
+% \subsection{Herleitungen}
+% \textit{TODO}
+% 
+% \subsection{Ausblick}
+% Wenn sich die hier vorgestellte Theorie als ergiebig erweist, können darauf
+% aufbauend weitere Aspekte des Versuchsaufbaus betrachtet werden, zum Beispiel
+% wie sich die Winkelgeschwindigkeiten bei gegebener Initialgeschwindigkeit an
+% den spezifischen Wert annähern.\\
+% Auch kann die Theorie dahingehend modifiziert werden, dass nicht mehr eine
+% Gruppe an Steinen betrachtet wird, sondern immer nur das gerade fallende Paar.
+% Bei so einem Ansatz kann auch ein eventuelles ``Zurückspringen'' der Steine berücksichtigt werden.

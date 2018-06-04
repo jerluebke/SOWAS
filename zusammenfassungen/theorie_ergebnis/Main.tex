@@ -1,0 +1,57 @@
+\documentclass[11pt,a4paper]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+    \graphicspath{{img/}}
+\usepackage[hidelinks]{hyperref}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+    \pagestyle{fancy}
+\usepackage{caption}
+\usepackage[backend=bibtex, style=numeric-comp]{biblatex}
+    \bibliography{Literatur.bib}
+\usepackage{float}
+
+\def\phistar{\dot{\phi}^*(\lambda)}
+\def\phii{\dot{\phi}_i}
+\def\phiip{\dot{\phi}_{i+1}}
+\def\kl{\tilde{k}(\lambda)}
+\def\klt{k(\theta, \lambda)}
+\def\kt{\tilde{k}}
+\def\kth{k(\theta)}
+\def\thetastar{\dot{\theta}^*(\theta, \lambda)}
+\def\thetai{\dot{\theta}_i(\theta)}
+\def\pkstar{\left[\frac{P}{K}\right]^*(\theta, \dot{\phi}^*)}
+\def\pki{\frac{P}{K_i}}
+\def\pkith{\left[\frac{P}{K_i}\right](\theta)}
+\def\thetas{\frac{\dot{\theta}_{i+1}}{\dot{\theta}_i}}
+
+\title{Fallende Dominosteine}
+\subtitle{Bearbeitungszeitraum: 09.04.2018 - 22.06.2018}
+\subject{Theorie Zusammenfassung\\Gruppe F\\Ruhr-Universität Bochum}
+\date{}
+\author{}
+
+
+\begin{document}
+	%\fancyfoot[C]{\thepage}
+
+	\maketitle
+	\thispagestyle{empty}
+	\newpage
+
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+
+	\input{ZusammenfassungStronge87}
+	\input{ZusammenfassungStronge88}
+    \clearpage
+	\input{MathematischesVorgehen}
+
+    \printbibliography
+
+\end{document}

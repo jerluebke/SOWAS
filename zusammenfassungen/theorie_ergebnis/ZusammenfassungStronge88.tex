@@ -1,0 +1,83 @@
+\section{Wichtige Relationen aus Stronge / Shu (88) \label{Stronge88}}
+
+Nach der Betrachtung in \cite{Stronge87}, wird jetzt angenommen, dass das Umwerfen der Dominos durch das Aneinanderlehnen der Steine zustande kommt. Auch hier wird die Existenz einer charakteristischen Geschwindigkeit vermutet. Die Annahmen sind wie folgt \cite{Stronge88}:
+
+\begin{itemize}
+	\item[(i)] Hinter der Wellenfront liegen unendlich  viele Dominosteine
+	\item[(ii)] Jeder Stein lehnt gegen seinen direkten Nachbarn
+	\item[(iii)] Die Reibung beim Rutschen über die Kontaktflächen ist vernachlässigbar klein
+	\item[(iv)] Der Rückschlagkoeffizient ist vernachlässigbar, d.h. es gibt nur eine Kollision zwischen zwei Dominos.
+\end{itemize}
+
+Mit der Bedingung (ii) ergibt sich folgende trigonometrische Beziehung \cite{Stronge88}:
+
+\begin{equation}
+	\label{eq:trig}
+	\sin(\Theta_{i+1} - \Theta_i) = \frac{\lambda + h}{L}\cos\Theta_i - \frac{h}{L}
+\end{equation}
+
+Damit erhalten wir folgende Rekursion für die Winkelgeschwindigkeiten:
+
+\begin{equation}
+    \label{eq:recursion}
+	\frac{\dot{\Theta_{i+1}}}{\dot{\Theta_i}} = 1-(\frac{\lambda+h}{L})\frac{\sin\Theta_i}{\cos(\Theta_{i+1}-\Theta_i)}
+\end{equation}
+
+Damit hängen also alle Winkelgeschwindigkeiten lediglich von der Anstoßgeschwindigkeit des ersten Dominos ab. Sei also $ \dot{\phi_1} = \dot{\Theta_1}(0)$.
+
+Zum Anfangszeitpunkt kann die Gesamtenergie $K$ beschrieben werden durch $K=k K_{0,i}$. Der Faktor $k$ wird berechnet durch \cite{Stronge88}:
+
+\begin{equation}
+    \label{eq:k}
+    \begin{split}
+        k & = \sum_{i=1}^{\infty} \frac{K_i}{K_{0,i}} \\
+        & = 1+\sum_{j=1}^{\infty}(\prod_{i=1}^{j} (\frac{\dot{\Theta_{i+1}}}{\dot{\Theta_i}})^2)
+    \end{split}
+\end{equation}
+
+Ähnlich zu den vorherigen Gleichungen erhalten wir eine Gleichung für das Verhältnis der potentiellen- zur kinetischen Energie, wobei $ \hat{\Theta} = \frac{1}{\arccos(1+\frac{\lambda}{h})} $ der maximal mögliche Winkel der Rotation ist.
+
+\begin{equation}
+    \label{eq:fracenergy2}
+    -\frac{p}{K_1}=\frac{2\omega^2}{\dot{\phi_1}^2}(\cos\phi-\cos(\hat{\Theta}-\phi))
+\end{equation}
+
+Achtung: Es wird im folgenden Rückwärts gezählt. Das heißt $\mathrm{D}_1$ wäre der Domino an vordester Front.
+
+Man erhält durch weitere Rechnung das Verhältnis von Kollisionsgeschwindigkeit und Initialgeschwindigkeit \cite{Stronge88}:
+
+\begin{equation}
+    \label{eq:fraccollision}
+	\frac{\dot{\psi}_1}{\dot{\phi}_1} = \sqrt{(\frac{k}{k-1})(1-\frac{p}{kK_1})}
+\end{equation}
+
+Wenn $e=0$, folgt für den Energieverlust pro Kollision:
+
+\begin{equation}
+    \label{eq:energyloss2}
+	\Delta K = K_1 \frac{\dot{\phi}_0 \dot{\psi}_1}{{\dot{\phi}_1}^2}
+\end{equation}
+
+\begin{equation}
+	\label{eq:fracinitspeeds}
+	\frac{\dot{\phi}_0}{\dot{\phi}_1} = \sqrt{(\frac{k-1}{k})(1-\frac{p}{kK_1})}
+\end{equation}
+
+Insgesamt erhalten wir nun für einen stationären Zustand, also eine gleichbleibende Geschwindigkeit: 
+
+\begin{equation}
+	\label{eq:phistar}
+	\frac{\dot{\phi}^{\star}}{\omega} = \sqrt{2(\frac{k-1}{k})(\cos\phi-\cos(\hat{\Theta}-\phi))}
+\end{equation}
+
+Die durchschnittliche Geschwindigkeit der Wellenfront erhalten wir durch simple Integration \cite{Stronge88} gemäß:
+
+\begin{equation}
+    \label{eq:vel}
+    v_{\star} = \frac{\lambda + h}{\int_0^{\psi} \frac{1}{\dot{\theta_1}(\theta)}\mathrm{d}x}
+\end{equation}
+\begin{equation}
+    \label{eq:thetadot}
+	\dot{\theta_1}(\theta) = \dot{\phi^{\star}} \sqrt{(\frac{k(\Theta)}{k(\Theta)-1})(1-\frac{p(\Theta)}{k(\Theta) K_{1}(\Theta)})}
+\end{equation}
+

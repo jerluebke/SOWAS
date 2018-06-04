@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper]{scrartcl}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
+
+\def\phistar{\dot{\phi}^*}
+\def\phii{\dot{\phi}_i}
+\def\phiip{\dot{\phi}_{i+1}}
+\def\thetai{\dot{\theta}_i(\theta)}
+\def\pki{\frac{P}{K_i}}
+\def\thetas{\frac{\dot{\theta}_{i+1}}{\dot{\theta}_i}}
+
+\title{Herleitung Theorie}
+\date{\today}
+\author{Jeremiah Lübke}
+
+\begin{document}
+
+\maketitle
+
+\section{Energie}
+Kinetische Energie des i-ten Steins:
+\[
+    K_i = \phii^2 \frac{m}{6}L^2\sec(\phi)
+\]
+Verlust potentieller Energie nach einer Drehung um \(\theta\):
+\[
+    P = -m g L \sec(\phi) \left[ \cos(\phi) - \cos(\theta - \phi) \right]
+\]
+Man erhält:
+\begin{equation}\label{eq:pk}
+    \implies -\pki = \frac{2\omega^2}{\phii^2} \left[ \cos(\phi) -
+    \cos(\theta-\phi) \right]
+\end{equation}
+wobei \(\omega^2 = \frac{3g\cos(\phi)}{2L}\)
+
+\section{Geschwindigkeiten}
+\emph{Annahme:} Geschwindigkeitsübertragung
+\begin{equation}\label{eq:I}
+    \frac{\phiip}{\dot{\psi}_i} = \frac{1+e}{R} \frac{k-1}{k} 
+    = \frac{1}{R} \frac{k-1}{k}
+\end{equation}
+wobei inelastische Stöße \(\left( e = 0 \right)\) und Energieerhaltung der
+Wellenfront \(\left( \frac{k-1}{k} \right)\) angenommen werden.
+\(R = 1+\frac{\xi + \mu\lambda}{\xi - \mu h} \) ist der 
+\emph{geometrische Koeffizient}. \\
+\par\noindent
+\emph{Annahme:} Verhältnis von Initial- und Kollisionsgeschwindigkeit
+\begin{equation}
+    \frac{\dot{\psi}_i}{\phii} = \sqrt{ \left( \frac{k}{k-1} \right)
+    \left( 1-\frac{1}{k}\pki \right) }
+    \label{eq:II}
+\end{equation}
+Der zweite Term in der Wurzel drückt den Energieverlust während des Fallens
+aus.\\
+\par\noindent
+Man erhält damit das Verhältnis der Initialgeschwindigkeiten:
+\begin{equation}\label{eq:III}
+    \xRightarrow{\eqref{eq:I}} \phiip = \dot{\psi}_i \frac{1}{R} \frac{k-1}{k}
+    \overset{\eqref{eq:II}}{=} \frac{\phii}{R} \sqrt{ \left( \frac{k-1}{k}
+    \right) \left( 1- \frac{1}{k} \pki \right) }
+\end{equation}
+und wenn man den konstanten Kollisionswinkel \(\dot{\psi}_i\) zu dem variablen
+Neigungswinkel \(\dot{\theta}_i\) überführt, erhält man:
+\begin{equation}\label{eq:IV}
+    \xRightarrow{\eqref{eq:II}} \dot{\theta}_i = \phii \sqrt{ \left( \frac{k}{k-1}
+    \right) \left( 1- \frac{1}{k}\pki \right) }
+\end{equation}
+\par\noindent
+Mit \eqref{eq:III} findet man die Initialgeschwindigkeit jedes Steins welche
+zur Integration von \eqref{eq:IV} zum Berechnen der Transversalgeschwindigkeit
+benötigt wird. \\
+\par\noindent
+Die Gleichung für die spezifische Geschwindigkeit erhält man, indem in
+\eqref{eq:III} \[\phii = \phiip := \phistar\] setzt, \eqref{eq:pk} einsetzt
+und dann nach dem noch in \eqref{eq:pk} enthaltenen \(\phistar\) umstellt.
+
+\end{document}
+
+

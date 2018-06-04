@@ -1,0 +1,60 @@
+\section{Wichtige Relationen aus Stronge (87) \label{Stronge87}}
+
+Wir betrachten im Folgenden entkoppelte Dominosteine, dass heißt es berühren sich maximal zwei Steine gleichzeitig. Diese Annahme scheint nach der Betrachtung in \cite{Stronge87} sinnvoll, da nach der Kollision, der anstoßende Stein etwas zurückspringt und keinen Kontakt mehr mit dem nächsten Stein hat.
+
+Die erste wichtige Gleichung, welche die initiale kinetische Energie der Steine beschreibt, ist gegeben durch die Energie der Rotation mit der gegebenen Geometrie des Problems \cite{Stronge87}: 
+
+\begin{equation}
+    \label{eq:K_0i}
+	K_{0,initial} = \frac{1}{6 \cos^2\phi} M L^2 {\dot{\phi}_{initial}}^2 
+\end{equation}
+
+\begin{equation}
+    \label{eq:frac_energy}
+    \frac{\Delta P_i}{K_{0,i}} = \frac{2\omega^2}{{\dot{\phi}_{initial}}^2} (\cos\psi - \cos\phi)
+\end{equation}
+
+Wobei $ \omega^2 = \frac{3g\cos\phi}{2L} $ die Eigenfrequenz darstellt \cite{Stronge87}. Die letzte Gleichung beschreibt die relative Zunahme der Energie, hervorgerufen durch weitere Rotation um $ \psi $. Wir erhalten durch weitere Rechnungen:
+
+\begin{equation}
+	\label{eq:frac_freq}
+	\frac{\dot{\psi}_{i}}{\dot{\phi}_{i}} = \sqrt{1- \frac{\Delta P_i}{K_{0,i}}}
+\end{equation}
+
+Wir wollen jetzt den Impulsübertrag auf den nächsten Stein, unter der Annahme dass $\mathrm{D}_n+1$ einen rückwirkenden Impuls auf $\mathrm{D}_n$ überträgt, betrachten. Im folgenden wird der Impuls mit $I$ bezeichnet. Es ist erforderlich in eine Komponente senkrecht auf die Kontaktfläche, sowie in eine Komponente entlang der Kontaktfläche zu unterteilen. Die Komponente parallel zur Fläche wird mit dem Reibungskoeffizienten $\mu$ gekennzeichnet. Die senkrechte Komponente ist durch den Parameter $\gamma = \frac{\xi + \mu\lambda}{L}$ gegeben. $\xi = L \cos(\psi + \phi)$ gibt an, in welcher Höhe der Stein $\mathrm{D_{n+1}}$ von $\mathrm{D}_{n}$ getroffen wird. Zusammenfassend gilt damit \cite{Stronge87}:
+ 
+\begin{equation}
+	\label{eq:parallel}
+	I_{\parallel} = \mu I
+\end{equation}
+\begin{equation}
+    \label{eq:senkrecht}
+    I_{\perp} = \gamma I
+\end{equation}
+
+An dieser Stelle wird der Rückwirkungskoeffizient $e$ eingeführt, welcher den bereits erwähnten Rückstoß, also einen Energieverlust, beschreibt. $R = 1 + \frac{\xi + \lambda\mu}{\xi - \lambda\mu}$ ist ein geometrischer Parameter. Nach weiterer Rechnung erhält man:
+
+\begin{equation}
+    \label{eq:frac_init}
+	\frac{\dot{\phi_{i+1}}}{\dot{\phi_{i}}} = \frac{1+e}{R} \sqrt{1 - \frac{\Delta P_i}{K_{0,i}}}
+\end{equation}
+
+Unter der Annahme, dass die Folge konvergiert \cite{Stronge87}, folgt für $ \phi_{i+1} = \phi_{i} $:
+
+\begin{equation}
+    \label{eq:finalfreq}
+	\frac{\dot{\phi^{\star}}}{\omega} = (1+e)\sqrt{\frac{2(\cos\phi - \cos\psi)}{R^2 - (1+e)^2}}
+\end{equation}
+
+An dieser Stelle können wir diverse charakteristische Verhaltensweisen des Domino-Arrays feststellen. Bei der Betrachtung der Parameter $R$ und $e$, lässt sich die Beziehung $ R > 1+e $ aufstellen. Zusammen mit Gleichung (\ref{eq:finalfreq}) ergibt sich, dass die Geometrie des Problems eine weitaus größere Rolle spielt, als die Reibung. 
+
+Desweiteren sei angemerkt, dass $\dot{\phi^{\star}}$ mit $\lambda$ steigt. Betrachten wir jedoch auch die Reibung, erhalten wir ein Maximum, nach dem die initialen Geschwindigkeiten wieder fallen.
+
+Wir betrachten nun den Energieverlust gemäß:
+
+\begin{equation}
+    \label{eq:energyloss}
+    \frac{\Delta K_i}{K_{0,i}} = (\frac{1-e}{1+e} (R-1)^2 + \frac{2}{1+e} (R-1) - 1)(\frac{\dot{\phi_{i+1}}}{\dot{\phi_{i}}})^2
+\end{equation}
+
+Wird der Array mit einer anderen Geschwindigkeit als $\dot{\phi^{\star}}$, $\dot{\phi_i} = \alpha \dot{\phi^{\star}}$ angestoßen, so erhalten wir mit Gleichung (\ref{eq:frac_freq}) eine Reskursionsformel, die die zeitliche Entwicklung beschreibt.
