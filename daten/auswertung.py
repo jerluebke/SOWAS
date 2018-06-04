@@ -91,9 +91,8 @@ def main():
     #      x-0.3, mu)[1])(LAMBDAS_LINSPACE), label='$\mu$ = {:.1f}'.format(mu)) for mu in MU]
 
     dominoes.main()
-    #  dominoes.WITH_FRICTION = True
-    #  dominoes.main()
-    #  plt.plot(LAMBDAS_LINSPACE, 4*dominoes.RESULT["y"])
+    dominoes.WITH_FRICTION = True
+    dominoes.main()
 
     #  for fig in FIGURE:
     #      fig.legend()

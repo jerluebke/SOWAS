@@ -104,13 +104,14 @@ def main():
 
     init(4.2, 0.5)
     spacings    = np.linspace(1.5, 4)
-    velocities  = np.array(map(velocity, spacings))
+    velocities  = np.array(list(map(velocity, spacings)))
     RESULT.append(dict(x=spacings, y=velocities))
 
     if not FIGURE:
         FIGURE = plt.gcf()
-    plt.plot(spacings, velocities, label="Stronge & Shu '88")
-    plt.legend()
+    plt.plot(spacings, velocities,
+             label="Stronge \& Shu \'88 - Friction = %s" % WITH_FRICTION)
+    #  plt.legend()
 
 
 if __name__ == "__main__":
