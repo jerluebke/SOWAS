@@ -102,7 +102,7 @@ def main():
     global FIGURE
     init(4.2, 0.5)
     spacings    = np.linspace(1.5, 4)
-    velocities  = np.array(list(map(velocity, spacings-0.0)))
+    velocities  = np.array(list(map(velocity, spacings-0.5)))
     if not FIGURE:
         FIGURE = plt.gcf()
     label_extension = "$\mu$ = %.1f" % MU if WITH_FRICTION else "No Friction"

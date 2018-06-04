@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
-sys.path.append("..")
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +13,7 @@ import dominoes
 #################
 
 # general settings
-DATA_DIR        = "./messreihe02/text"
+DATA_DIR        = "./text"
 FILE_TYPE       = ".txt"
 FIRST_ELEMS     = 4
 LAST_ELEMS      = 1
