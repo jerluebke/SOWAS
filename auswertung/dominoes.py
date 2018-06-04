@@ -66,7 +66,7 @@ def theta_dot_rel(index, theta_initial) -> np.ndarray:
         b = np.cos(thetas[1:] - thetas[:-1]) + MU * np.sin(thetas[1:] - thetas[:-1])
         return a/b
     else:
-        return 1 - ETA * np.sin(thetas[:-1]) / np.cos(thetas[1:] - thetas[:-1])
+        return 1 - ETA * np.sin(thetas[1:]) / np.cos(thetas[1:] - thetas[:-1])
 
 def P_over_K(thetas : np.ndarray) -> np.ndarray:
     return 2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(thetas - PHI)) / PHI_DOT**2
