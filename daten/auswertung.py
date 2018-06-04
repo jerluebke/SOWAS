@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import sys
@@ -19,7 +20,9 @@ FILE_TYPE       = ".txt"
 FIRST_ELEMS     = 4
 LAST_ELEMS      = 1
 FIGSIZE         = (12, 8)
-ERRORBAR_PROPS  = dict(ecolor="black", capsize=6, marker="o", linestyle="None")
+ERRORBAR_PROPS  = dict(ecolor="black", capsize=5, marker="o",
+                       markersize=6, color="red",
+                       linestyle="None")
 DPI             = 300
 
 # spacings and friction
@@ -34,18 +37,14 @@ LAMBDAS = np.array([
 LAMBDAS_LINSPACE = np.linspace(1.5, 4)
 MU = [
     0.2,
-    #  0.3,
-    #  0.4,
-    #  0.5,
-    #  0.6,
-    #  0.7
+    0.4,
 ]
 
 # saving figures here
 FIGURE  = []
 
 # theoretical utility
-DOMINO_CHAIN = dc.PyDominoChain(dc.domino_tuple(4.2, 0.6))
+DOMINO_CHAIN = dc.PyDominoChain(dc.domino_tuple(4.2, 0.5))
 
 
 #################
@@ -92,11 +91,9 @@ def main():
 
     dominoes.main()
     dominoes.WITH_FRICTION = True
-    dominoes.main()
-
-    #  for fig in FIGURE:
-    #      fig.legend()
-    #      fig.savefig("%d.png" % fig.number, dpi=DPI)
+    for mu in MU:
+        dominoes.MU = mu
+        dominoes.main()
 
     ax_01 = FIGURE[0].get_axes()[0]
     ax_01.set(
@@ -104,6 +101,7 @@ def main():
         xlabel="Abstand in m",
         ylabel="V in m/s"
     )
+    plt.legend()
 
     return 0
 
