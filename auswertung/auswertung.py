@@ -4,7 +4,6 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import DominoChain as dc
 import dominoes
 
 
@@ -32,7 +31,6 @@ LAMBDAS = np.array([
     3.5,
     4.0,
 ])
-LAMBDAS_LINSPACE = np.linspace(1.5, 4)
 MU = [
     0.2,
     0.4,
@@ -40,9 +38,6 @@ MU = [
 
 # saving figures here
 FIGURE  = []
-
-# theoretical utility
-DOMINO_CHAIN = dc.PyDominoChain(dc.domino_tuple(4.2, 0.5))
 
 
 #################
@@ -73,19 +68,17 @@ def make_plot(xdata, ydata, yerr)->list:
 
 
 def main():
-    global FIGURE, AXIS
+    global FIGURE
 
     # prepare data
     raw_data = get_data()*10
     time_mean, time_err = calc_mean_and_std(raw_data).transpose()
     ydata = LAMBDAS / time_mean
+    # propagation of uncertainty
     yerr = LAMBDAS * time_err / time_mean**2
 
     # compare with theoretical intrinsic transversal
     FIGURE.append(make_plot(LAMBDAS, ydata, yerr)[0])
-    #  ax_1 = FIGURE[0].get_axes()[0]
-    #  [ax_1.plot(LAMBDAS_LINSPACE, (lambda x: DOMINO_CHAIN.intrinsic_velocities(
-    #      x-0.3, mu)[1])(LAMBDAS_LINSPACE), label='$\mu$ = {:.1f}'.format(mu)) for mu in MU]
 
     dominoes.main()
     dominoes.WITH_FRICTION = True
