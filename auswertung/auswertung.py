@@ -80,6 +80,7 @@ def main():
     # compare with theoretical intrinsic transversal
     FIGURE.append(make_plot(LAMBDAS, ydata, yerr)[0])
 
+    dominoes.WITH_FRICTION = False
     dominoes.main()
     dominoes.WITH_FRICTION = True
     for mu in MU:

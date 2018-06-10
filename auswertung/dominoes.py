@@ -21,9 +21,10 @@ ETA             = 0     # = (λ + h) / L
 THETA_HAT       = 0     # = arccos(h / (h + λ))
 PHI_DOT         = 0
 
-MU              = 0.2   # coefficient of friction
+REL_ENERGY_LOSS = 0
+MU              = 0.101   # coefficient of friction
 INT_STEPS       = 50    # number of integration steps
-WITH_FRICTION   = False
+WITH_FRICTION   = True
 
 G = 9.80665
 
@@ -34,7 +35,9 @@ FIGURE = None
 #  FUNCTIONS  #
 ###############
 
-def velocity(lambda_value):
+def velocity(lambda_value, energy_loss=0):
+    global ENERGY_LOSS
+    ENERGY_LOSS = energy_loss
     update(lambda_value)
     return (LAMBDA + H) / time()
 
@@ -62,14 +65,18 @@ def theta_dot_rel(index, theta_initial) -> np.ndarray:
     for i in range(1, thetas.size):
         thetas[i] = np.arcsin(ETA * np.cos(thetas[i-1]) - H/L) + thetas[i-1]
     if WITH_FRICTION:
-        a = np.cos(thetas[1:] - thetas[:-1]) - ETA * np.sin(thetas[1:]) - MU * H
+        #  a = np.cos(thetas[1:] - thetas[:-1]) - ETA * np.sin(thetas[1:]) - MU * H
+        #  b = np.cos(thetas[1:] - thetas[:-1]) + MU * np.sin(thetas[1:] - thetas[:-1])
+        a = np.cos(thetas[1:] - thetas[:-1]) - ETA * np.sin(thetas[:-1]) - MU * H
         b = np.cos(thetas[1:] - thetas[:-1]) + MU * np.sin(thetas[1:] - thetas[:-1])
         return a/b
     else:
-        return 1 - ETA * np.sin(thetas[1:]) / np.cos(thetas[1:] - thetas[:-1])
+        #  return 1 - ETA * np.sin(thetas[1:]) / np.cos(thetas[1:] - thetas[:-1])
+        return 1 - ETA * np.sin(thetas[:-1]) / np.cos(thetas[1:] - thetas[:-1])
 
 def P_over_K(thetas : np.ndarray) -> np.ndarray:
-    return 2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(thetas - PHI)) / PHI_DOT**2
+    return 2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(thetas - PHI)) \
+            / PHI_DOT**2 - REL_ENERGY_LOSS
 
 def phi_dot():
     k_value = k(0)
@@ -100,11 +107,13 @@ def update(spacing):
 
 def main():
     global FIGURE
-    init(4.2, 0.5)
+    init(4.2, 0.6)
     spacings    = np.linspace(1.5, 4)
-    velocities  = np.array(list(map(velocity, spacings-0.5)))
+    velocities  = np.array(list(map(
+        lambda x: velocity(x, energy_loss=0.8795), spacings-0.6)))
     if not FIGURE:
         FIGURE = plt.gcf()
     label_extension = "$\mu$ = %.1f" % MU if WITH_FRICTION else "No Friction"
+    label = "Theoretischer Verlauf - %s" % label_extension
     plt.plot(spacings, velocities,
-             label="Stronge \& Shu \'88 - %s" % label_extension)
+             label=label)
