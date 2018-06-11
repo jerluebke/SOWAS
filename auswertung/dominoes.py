@@ -36,8 +36,8 @@ FIGURE = None
 ###############
 
 def velocity(lambda_value, energy_loss=0):
-    global ENERGY_LOSS
-    ENERGY_LOSS = energy_loss
+    global REL_ENERGY_LOSS
+    REL_ENERGY_LOSS = energy_loss
     update(lambda_value)
     return (LAMBDA + H) / time()
 

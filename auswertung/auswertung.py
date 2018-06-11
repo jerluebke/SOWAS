@@ -67,7 +67,7 @@ def make_plot(xdata, ydata, yerr)->list:
     return [fig, ax]
 
 
-def main():
+def main_read_data():
     global FIGURE
 
     # prepare data
@@ -98,5 +98,21 @@ def main():
     return 0
 
 
-if __name__ == "__main__":
-    main()
+def main_given_data():
+    exp_data = np.fromfile("./experimental_data.dat").reshape(6, 3)
+    dominoes.init(4.2, 0.6)
+    dominoes.MU = 0.101
+    spacings = np.linspace(1.5, 4)
+    velocities = np.array(list(map(
+        lambda x: dominoes.velocity(x, energy_loss=0.9),
+        spacings-0.6)))
+
+    plt.figure()
+    plt.errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
+                 **ERRORBAR_PROPS,
+                 label="Experimentelle Daten")
+    plt.plot(spacings, velocities,
+             label="Theoretischer Verlauf - $\mu$ = %.3f" % dominoes.MU)
+
+#  if __name__ == "__main__":
+#      main()
