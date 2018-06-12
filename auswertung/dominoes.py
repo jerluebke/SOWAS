@@ -20,11 +20,12 @@ D_THETA         = 0
 ETA             = 0     # = (λ + h) / L
 THETA_HAT       = 0     # = arccos(h / (h + λ))
 PHI_DOT         = 0
-
 REL_ENERGY_LOSS = 0
 MU              = 0.101   # coefficient of friction
 INT_STEPS       = 50    # number of integration steps
 WITH_FRICTION   = True
+
+DEFAULT_ENERGY_LOSS = 0.9
 
 G = 9.80665
 
@@ -35,10 +36,8 @@ FIGURE = None
 #  FUNCTIONS  #
 ###############
 
-def velocity(lambda_value, energy_loss=0):
-    global REL_ENERGY_LOSS
-    REL_ENERGY_LOSS = energy_loss
-    update(lambda_value)
+def velocity(lambda_value, phi_dot_i=None):
+    update(lambda_value, phi_dot_i)
     return (LAMBDA + H) / time()
 
 def time():
@@ -74,46 +73,69 @@ def theta_dot_rel(index, theta_initial) -> np.ndarray:
         #  return 1 - ETA * np.sin(thetas[1:]) / np.cos(thetas[1:] - thetas[:-1])
         return 1 - ETA * np.sin(thetas[:-1]) / np.cos(thetas[1:] - thetas[:-1])
 
-def P_over_K(thetas : np.ndarray) -> np.ndarray:
+def P_over_K(thetas : np.ndarray, phi_dot_i=None) -> np.ndarray:
+    if not phi_dot_i:
+        phi_dot_i = PHI_DOT
     return 2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(thetas - PHI)) \
-            / PHI_DOT**2 - REL_ENERGY_LOSS
+            / phi_dot_i**2 - REL_ENERGY_LOSS
 
 def phi_dot():
     k_value = k(0)
     return np.sqrt(OMEGA_SQUARED * (k_value-1) / k_value
                    * 2 * (np.cos(PHI) - np.cos(THETA_HAT - PHI)))
 
+def angular_velocities(initial : float, number_of_pieces : int) -> np.ndarray:
+    k_value = k(0)
+    phis = np.empty(number_of_pieces)
+    phis[0] = initial
+    for i in range(1, phis.size):
+        phis[i] = phis[i-1] * np.sqrt(
+            (k_value-1)/k_value * (1-P_over_K(THETA_HAT, phis[i-1]) / k_value))
+    return phis
+
 
 ###########
 #  SETUP  #
 ###########
 
-def init(height, width, pieces=6):
-    global L, H, PIECES, PHI, OMEGA_SQUARED
+def init(height, width, pieces=6, energy_loss=0):
+    global L, H, PIECES, PHI, OMEGA_SQUARED, REL_ENERGY_LOSS
     L               = height
     H               = width
     PIECES          = pieces
     PHI             = np.arctan(H / L)
     OMEGA_SQUARED   = 3 * G * np.cos(PHI) / (2 * L)
+    REL_ENERGY_LOSS = energy_loss
 
-def update(spacing):
+def update(spacing, phi_dot_i=None):
     global LAMBDA, PSI, D_THETA, ETA, THETA_HAT, PHI_DOT
     LAMBDA      = spacing
     PSI         = np.arcsin(LAMBDA / L)
     D_THETA     = PSI / INT_STEPS
     ETA         = (LAMBDA + H) / L
     THETA_HAT   = np.arccos(H / (H + LAMBDA))
-    PHI_DOT     = phi_dot()
+    PHI_DOT     = phi_dot_i if phi_dot_i else phi_dot()
 
 def main():
     global FIGURE
-    init(4.2, 0.6)
+    init(4.2, 0.6, energy_loss=DEFAULT_ENERGY_LOSS)
     spacings    = np.linspace(1.5, 4)
-    velocities  = np.array(list(map(
-        lambda x: velocity(x, energy_loss=0.8795), spacings-0.6)))
+    velocities  = np.array(list(map(lambda x: velocity(x), spacings-0.6)))
     if not FIGURE:
         FIGURE = plt.gcf()
     label_extension = "$\mu$ = %.1f" % MU if WITH_FRICTION else "No Friction"
     label = "Theoretischer Verlauf - %s" % label_extension
     plt.plot(spacings, velocities,
              label=label)
+
+def main_by_x(spacing, initial_angular, number_of_pieces):
+    global FIGURE
+    init(4.2, 0.6, energy_loss=DEFAULT_ENERGY_LOSS)
+    phi_dot_values = angular_velocities(initial_angular, number_of_pieces)
+    velocities = np.array(list(map(
+        lambda x: velocity(spacing, x), phi_dot_values)))
+    positions = np.arange(0, number_of_pieces*(spacing+H), spacing+H)
+    if not FIGURE:
+        FIGURE = plt.gcf()
+    plt.plot(positions, velocities)
+
