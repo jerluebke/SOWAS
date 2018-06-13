@@ -115,22 +115,21 @@ def main_given_data():
     plt.plot(spacings, velocities,
              label="Theoretischer Verlauf - $\mu$ = %.3f" % dominoes.MU)
 
-#  if __name__ == "__main__":
-#      main()
 
 def main_compare():
     v_vs_x.init(4.2, 0.6, 2.4, 30, 0.8, 0.9)
     dominoes.init(4.2, 0.6, 0.9)
     fig, ax = plt.subplots(ncols=2, figsize=FIGSIZE)
     pos = np.arange(0, 90, 3)
-    vel = np.fromfile("./velocities_by_x.dat").reshape(34, 3)
-    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)[:-4]
+    vel1 = np.fromfile("./velocities_by_x.dat").reshape(34, 3)[:-4]
+    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)
     spacings = np.linspace(1.5, 4)
-    velocities = np.array(list(map(lambda x: dominoes.velocity(x), spacings-0.6)))
-    ax[0].errorbar(pos, vel.mean(axis=1), vel.std(axis=1), **ERRORBAR_PROPS)
+    vel2 = np.array(list(map(lambda x: dominoes.velocity(x), spacings-0.6)))
+    ax[0].errorbar(pos, vel1.mean(axis=1), vel1.std(axis=1), **ERRORBAR_PROPS)
     ax[0].plot(pos, v_vs_x.velocities())
+    ax[0].plot((0, 70), 2*(dominoes.velocity(2.4),), "--", color="grey")
     ax[1].errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
-                 **ERRORBAR_PROPS)
-    ax[1].plot(spacings, velocities)
-    
+                   **ERRORBAR_PROPS)
+    ax[1].plot(spacings, vel2)
+    ax[0].set_xlim(1.5, 61.5)
 
