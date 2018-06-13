@@ -21,7 +21,7 @@ ETA             = 0     # = (λ + h) / L
 THETA_HAT       = 0     # = arccos(h / (h + λ))
 PHI_DOT         = 0
 
-REL_ENERGY_LOSS = 0
+REL_ENERGY_LOSS = 0.9
 MU              = 0.101   # coefficient of friction
 INT_STEPS       = 50    # number of integration steps
 WITH_FRICTION   = True
@@ -35,9 +35,7 @@ FIGURE = None
 #  FUNCTIONS  #
 ###############
 
-def velocity(lambda_value, energy_loss=0):
-    global REL_ENERGY_LOSS
-    REL_ENERGY_LOSS = energy_loss
+def velocity(lambda_value):
     update(lambda_value)
     return (LAMBDA + H) / time()
 
@@ -88,13 +86,14 @@ def phi_dot():
 #  SETUP  #
 ###########
 
-def init(height, width, pieces=6):
-    global L, H, PIECES, PHI, OMEGA_SQUARED
+def init(height, width, energy_loss, pieces=6):
+    global L, H, PIECES, PHI, OMEGA_SQUARED, REL_ENERGY_LOSS
     L               = height
     H               = width
     PIECES          = pieces
     PHI             = np.arctan(H / L)
     OMEGA_SQUARED   = 3 * G * np.cos(PHI) / (2 * L)
+    REL_ENERGY_LOSS = energy_loss
 
 def update(spacing):
     global LAMBDA, PSI, D_THETA, ETA, THETA_HAT, PHI_DOT
@@ -107,7 +106,7 @@ def update(spacing):
 
 def main():
     global FIGURE
-    init(4.2, 0.6)
+    init(4.2, 0.6, 0.9)
     spacings    = np.linspace(1.5, 4)
     velocities  = np.array(list(map(
         lambda x: velocity(x, energy_loss=0.8795), spacings-0.6)))

@@ -55,7 +55,7 @@ def phi_dot(initial):
 
 def theta_dot(thetas, index):
     kt = np.array([k(theta, index) for theta in thetas])
-    P_K = np.array([P_over_K(theta, PHI_DOT_VALS[index]) for theta in thetas])
+    P_K = P_over_K(thetas, PHI_DOT_VALS[index])
     return PHI_DOT_VALS[index]*np.sqrt(kt/(kt-1)*(1+P_K/kt))
 
 def time(index):
@@ -70,9 +70,9 @@ def velocities():
     return (SPACING + H) / np.array([time(i) for i in range(LENGTH)])
 
 
-def init(height, width, spacing, length, initial, pieces=6):
+def init(height, width, spacing, length, initial, energy_loss, pieces=6):
     global L, H, SPACING, LENGTH, PIECES, ETA, PHI, PSI, D_THETA
-    global OMEGA_SQUARED, THETA_HAT, PHI_DOT_VALS
+    global OMEGA_SQUARED, THETA_HAT, PHI_DOT_VALS, REL_ENERGY_LOSS
     L               = height
     H               = width
     SPACING         = spacing
@@ -84,6 +84,7 @@ def init(height, width, spacing, length, initial, pieces=6):
     D_THETA         = PSI / INT_STEPS
     OMEGA_SQUARED   = 3 * G * np.cos(PHI) / (2 * L)
     THETA_HAT       = np.arccos(H / (H + SPACING))
+    REL_ENERGY_LOSS = energy_loss
     PHI_DOT_VALS    = phi_dot(initial)
 
 def main():
