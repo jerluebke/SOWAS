@@ -18,7 +18,7 @@ THETA_HAT       = 0
 
 INT_STEPS       = 50
 PHI_DOT_VALS    = None
-INITIAL         = 1
+INITIAL         = 0.8
 MU              = 0.1
 REL_ENERGY_LOSS = 0.9
 
@@ -39,9 +39,10 @@ def theta_dot_rel(index, theta_initial) -> np.ndarray:
     b = np.cos(thetas[1:] - thetas[:-1]) + MU * np.sin(thetas[1:] - thetas[:-1])
     return a/b
 
-def P_over_K(theta, phi_dot):
-    return 2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(theta - PHI)) \
-            / phi_dot**2 - REL_ENERGY_LOSS
+def P_over_K(theta, phi_dot, initial=False):
+    result =  2 * OMEGA_SQUARED * (np.cos(PHI) - np.cos(theta - PHI)) \
+              / phi_dot**2
+    return result - REL_ENERGY_LOSS if not initial else result
 
 def phi_dot(initial):
     result = np.empty(LENGTH)
@@ -49,8 +50,8 @@ def phi_dot(initial):
     for i in range(1, LENGTH):
         if i <= PIECES:
             k0 = k(0, i)
-        result[i] = result[i-1]*np.sqrt((k0-1)/k0*(1+P_over_K(THETA_HAT,
-                                                              result[i-1])/k0))
+        result[i] = result[i-1]*np.sqrt(
+            (k0-1)/k0*(1+P_over_K(THETA_HAT, result[i-1], True)/k0))
     return result
 
 def theta_dot(thetas, index):
@@ -88,7 +89,7 @@ def init(height, width, spacing, length, initial, energy_loss, pieces=6):
     PHI_DOT_VALS    = phi_dot(initial)
 
 def main():
-    init(4.2, 0.6, 3, 30, INITIAL)
+    init(4.2, 0.6, 2.4, 30, INITIAL, REL_ENERGY_LOSS)
     pos = np.arange(0, LENGTH*(SPACING+H), SPACING+H)
     vel = velocities()
     plt.gcf()

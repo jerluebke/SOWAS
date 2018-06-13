@@ -5,6 +5,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import dominoes
+import v_vs_x
 
 
 #################
@@ -16,7 +17,7 @@ DATA_DIR        = "./text"
 FILE_TYPE       = ".txt"
 FIRST_ELEMS     = 4
 LAST_ELEMS      = 1
-FIGSIZE         = (12, 8)
+FIGSIZE         =(32, 16)   #  (12, 8)
 ERRORBAR_PROPS  = dict(ecolor="black", capsize=5, marker="o",
                        markersize=6, color="red",
                        linestyle="None")
@@ -99,12 +100,12 @@ def main_read_data():
 
 
 def main_given_data():
-    exp_data = np.fromfile("./experimental_data.dat").reshape(6, 3)
+    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)
     dominoes.init(4.2, 0.6, 0.9)
     dominoes.MU = 0.101
     spacings = np.linspace(1.5, 4)
     velocities = np.array(list(map(
-        lambda x: dominoes.velocity(x, energy_loss=0.9),
+        lambda x: dominoes.velocity(x),
         spacings-0.6)))
 
     plt.figure()
@@ -116,3 +117,20 @@ def main_given_data():
 
 #  if __name__ == "__main__":
 #      main()
+
+def main_compare():
+    v_vs_x.init(4.2, 0.6, 2.4, 30, 0.8, 0.9)
+    dominoes.init(4.2, 0.6, 0.9)
+    fig, ax = plt.subplots(ncols=2, figsize=FIGSIZE)
+    pos = np.arange(0, 90, 3)
+    vel = np.fromfile("./velocities_by_x.dat").reshape(34, 3)
+    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)[:-4]
+    spacings = np.linspace(1.5, 4)
+    velocities = np.array(list(map(lambda x: dominoes.velocity(x), spacings-0.6)))
+    ax[0].errorbar(pos, vel.mean(axis=1), vel.std(axis=1), **ERRORBAR_PROPS)
+    ax[0].plot(pos, v_vs_x.velocities())
+    ax[1].errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
+                 **ERRORBAR_PROPS)
+    ax[1].plot(spacings, velocities)
+    
+
