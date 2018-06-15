@@ -3,6 +3,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 import dominoes
 import v_vs_x
 
@@ -17,11 +18,18 @@ DPI             = 300
 DOMINO_PROPS    = dict(height=4.2, width=0.6, energy_loss=0.9)
 PIECES          = 30
 INITIAL_VEL     = 0.8
+LABEL_EXP       = "Experimentelle Daten"
+LABEL_TH        = "Theoretischer Verlauf - $\mu$ = %.1f" % 0.1
+
+LEGEND = None
+LEGEND_PROPS = dict(loc="upper center"
+                    # , bbox_to_anchor=(.5, 0)
+                   )
 
 
 def main_compare():
     # init calculations
-    v_vs_x.init(**DOMINO_PROPS, length=PIECES, initial=INITIAL_VEL)
+    v_vs_x.init(**DOMINO_PROPS, spacing=2.4, length=PIECES, initial=INITIAL_VEL)
     dominoes.init(**DOMINO_PROPS)
     pos         = np.arange(0, 90, 3)
     vel_3cm_exp = np.fromfile(EXP_DATA_ALL).reshape(34, 3)[:-4]
@@ -35,8 +43,8 @@ def main_compare():
     fig, ax = plt.subplots(ncols=2, figsize=FIGSIZE)
 
     # progression of velocity for 3 cm spacing
-    ax[0].errorbar(pos, vel_3cm_exp.mean(axis=1), vel_3cm_exp.std(axis=1),
-                   **ERRORBAR_PROPS)
+    exp = ax[0].errorbar(pos, vel_3cm_exp.mean(axis=1), vel_3cm_exp.std(axis=1),
+                         **ERRORBAR_PROPS)
     ax[0].plot(pos, vel_3cm_th)
     # add horizontal line indicating the asymptotical velocity
     ax[0].plot((0, 70), 2*(dominoes.velocity(2.4),), "--", color="grey")
@@ -48,4 +56,8 @@ def main_compare():
 
     # adjustments
     ax[0].set_xlim(1.5, 61.5)
+
+    th_line = mlines.Line2D([], [], color="blue")
+    global LEGEND
+    LEGEND = fig.legend((exp, th_line), (LABEL_EXP, LABEL_TH))
 

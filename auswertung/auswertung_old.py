@@ -68,6 +68,12 @@ def make_plot(xdata, ydata, yerr)->list:
 
 
 def main_read_data():
+
+    print("The Raw Data Files for this script were removed\n"\
+          "For a working version with compatible data return to commit 497ffd\n"\
+          "Terminating...\n")
+    return -1
+
     global FIGURE
 
     # prepare data
