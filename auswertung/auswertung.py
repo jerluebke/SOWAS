@@ -1,135 +1,51 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 import dominoes
 import v_vs_x
 
 
-#################
-#   GLOBALS     #
-#################
-
-# general settings
-DATA_DIR        = "./text"
-FILE_TYPE       = ".txt"
-FIRST_ELEMS     = 4
-LAST_ELEMS      = 1
-FIGSIZE         =(32, 16)   #  (12, 8)
+EXP_DATA_ALL    = "./velocities_by_x.dat"
+EXP_DATA_3CM    = "./experimental_data_avg.dat"
+FIGSIZE         = (32, 16)   #  (12, 8)
 ERRORBAR_PROPS  = dict(ecolor="black", capsize=5, marker="o",
                        markersize=6, color="red",
                        linestyle="None")
 DPI             = 300
-
-# spacings and friction
-LAMBDAS = np.array([
-    1.5,
-    2.0,
-    2.5,
-    3.0,
-    3.5,
-    4.0,
-])
-MU = [
-    0.2,
-    0.4,
-]
-
-# saving figures here
-FIGURE  = []
-
-
-#################
-#   FUNCTIONS   #
-#################
-
-def get_data()->np.ndarray:
-    return np.array([get_content(file) for file in os.listdir(DATA_DIR)
-                     if file.endswith(FILE_TYPE)])
-
-def get_content(file:str)->np.ndarray:
-    with open(os.path.join(DATA_DIR, file), 'r') as f:
-        lines = f.readlines()
-    return np.array(lines[FIRST_ELEMS:], dtype=np.float64)
-
-def calc_mean_and_std(data:np.ndarray)->np.ndarray:
-    return np.array([
-        (lambda arr: [np.mean(arr), np.std(arr)])(np.abs(elem[:-1] - elem[1:]))
-        for elem in data
-    ])
-
-def make_plot(xdata, ydata, yerr)->list:
-    fig, ax = plt.subplots(figsize=FIGSIZE)
-    ax.errorbar(xdata, ydata, yerr,
-                label="Experimentelle Daten",
-                **ERRORBAR_PROPS)
-    return [fig, ax]
-
-
-def main_read_data():
-    global FIGURE
-
-    # prepare data
-    raw_data = get_data()*10
-    time_mean, time_err = calc_mean_and_std(raw_data).transpose()
-    ydata = LAMBDAS / time_mean
-    # propagation of uncertainty
-    yerr = LAMBDAS * time_err / time_mean**2
-
-    # compare with theoretical intrinsic transversal
-    FIGURE.append(make_plot(LAMBDAS, ydata, yerr)[0])
-
-    dominoes.WITH_FRICTION = False
-    dominoes.main()
-    dominoes.WITH_FRICTION = True
-    for mu in MU:
-        dominoes.MU = mu
-        dominoes.main()
-
-    ax_01 = FIGURE[0].get_axes()[0]
-    ax_01.set(
-        title="Vergleich: Experimentelle und Theoretische Daten",
-        xlabel="Abstand in m",
-        ylabel="V in m/s"
-    )
-    plt.legend()
-
-    return 0
-
-
-def main_given_data():
-    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)
-    dominoes.init(4.2, 0.6, 0.9)
-    dominoes.MU = 0.101
-    spacings = np.linspace(1.5, 4)
-    velocities = np.array(list(map(
-        lambda x: dominoes.velocity(x),
-        spacings-0.6)))
-
-    plt.figure()
-    plt.errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
-                 **ERRORBAR_PROPS,
-                 label="Experimentelle Daten")
-    plt.plot(spacings, velocities,
-             label="Theoretischer Verlauf - $\mu$ = %.3f" % dominoes.MU)
+DOMINO_PROPS    = dict(height=4.2, width=0.6, energy_loss=0.9)
+PIECES          = 30
+INITIAL_VEL     = 0.8
 
 
 def main_compare():
-    v_vs_x.init(4.2, 0.6, 2.4, 30, 0.8, 0.9)
-    dominoes.init(4.2, 0.6, 0.9)
+    # init calculations
+    v_vs_x.init(**DOMINO_PROPS, length=PIECES, initial=INITIAL_VEL)
+    dominoes.init(**DOMINO_PROPS)
+    pos         = np.arange(0, 90, 3)
+    vel_3cm_exp = np.fromfile(EXP_DATA_ALL).reshape(34, 3)[:-4]
+    vel_3cm_th  = v_vs_x.velocities()
+    exp_data    = np.fromfile(EXP_DATA_3CM).reshape(6, 3)
+    spacings    = np.linspace(1.5, 4)
+    vel_all     = np.array(list(map(lambda x: dominoes.velocity(x),
+                                    spacings-0.6)))
+
+    # plotting
     fig, ax = plt.subplots(ncols=2, figsize=FIGSIZE)
-    pos = np.arange(0, 90, 3)
-    vel1 = np.fromfile("./velocities_by_x.dat").reshape(34, 3)[:-4]
-    exp_data = np.fromfile("./experimental_data_avg.dat").reshape(6, 3)
-    spacings = np.linspace(1.5, 4)
-    vel2 = np.array(list(map(lambda x: dominoes.velocity(x), spacings-0.6)))
-    ax[0].errorbar(pos, vel1.mean(axis=1), vel1.std(axis=1), **ERRORBAR_PROPS)
-    ax[0].plot(pos, v_vs_x.velocities())
+
+    # progression of velocity for 3 cm spacing
+    ax[0].errorbar(pos, vel_3cm_exp.mean(axis=1), vel_3cm_exp.std(axis=1),
+                   **ERRORBAR_PROPS)
+    ax[0].plot(pos, vel_3cm_th)
+    # add horizontal line indicating the asymptotical velocity
     ax[0].plot((0, 70), 2*(dominoes.velocity(2.4),), "--", color="grey")
+
+    # plot velocity vs spacing
     ax[1].errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
                    **ERRORBAR_PROPS)
-    ax[1].plot(spacings, vel2)
+    ax[1].plot(spacings, vel_all)
+
+    # adjustments
     ax[0].set_xlim(1.5, 61.5)
 
