@@ -8,6 +8,12 @@ import dominoes
 import v_vs_x
 
 mpl.rcParams["font.size"] = 22
+mpl.rcParams["xtick.major.size"] = 6
+mpl.rcParams["xtick.major.width"] = 1.8
+mpl.rcParams["ytick.major.size"] = 6
+mpl.rcParams["ytick.major.width"] = 1.8
+mpl.rcParams["grid.linewidth"] = 1.2
+mpl.rcParams["lines.linewidth"] = 2
 
 
 EXP_DATA_ALL    = "./velocities_by_x.dat"
@@ -15,6 +21,7 @@ EXP_DATA_3CM    = "./experimental_data_avg.dat"
 FIGSIZE         = (16, 8)   #  (12, 8)
 ERRORBAR_PROPS  = dict(ecolor="black", capsize=5, marker="o",
                        markersize=8, color="red",
+                       elinewidth=1.8, capthick=1.2,
                        linestyle="None")
 DPI             = 300
 DOMINO_PROPS    = dict(height=4.2, width=0.6, energy_loss=0.9)
@@ -40,13 +47,13 @@ def main_compare(save=False):
     # plotting
     fig, ax = plt.subplots(ncols=2, figsize=FIGSIZE)
 
+    # add horizontal line indicating the asymptotical velocity
+    ax[0].plot((0, 70), 2*(vel_as,), linestyle=(5, (5, 5)), color="grey")
     # progression of velocity for 3 cm spacing
     ax[0].errorbar(pos, vel_3cm_exp.mean(axis=1), vel_3cm_exp.std(axis=1),
                    **ERRORBAR_PROPS, label=LABEL_EXP)
     ax[0].plot(pos, vel_3cm_th,
                label=LABEL_TH)
-    # add horizontal line indicating the asymptotical velocity
-    ax[0].plot((0, 70), 2*(vel_as,), "--", color="grey")
     # adjustments
     ax[0].set_xlim(1.5, 61.5)
 
