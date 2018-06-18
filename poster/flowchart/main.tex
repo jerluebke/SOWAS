@@ -7,13 +7,23 @@
 \usepackage{amssymb}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric,arrows}
+\usetikzlibrary{graphs}
 
 \def\phii{\dot{\phi}_i}
 \def\phiip{\dot{\phi}_{i+1}}
-\def\thetai{\dot{\theta}_i(\theta)}
+\def\thetai{\theta_i}
+\def\thetaid{\dot{\theta}_i}
+\def\thetainit{\dot{\theta}_i^{initial}}
 
-\def\start{Koordinaten}
-\def\dyn{Dynamik}
+\def\start{
+    Koordinaten des i-ten Dominos: $\thetai, \thetaid$
+}
+\def\dyn{
+    Dynamik des Problems liefert:
+    $\thetaid = f\left(\thetainit, \theta\right)$
+    $\left(\thetainit\text{: Anfangswert, }\theta\text{: beliebiger Winkel während
+    des Falls}\right)$
+}
 \def\enconv{Energieerhaltung}
 \def\vi{$v_i$}
 \def\ang{$\dot{\theta}_i$}
@@ -23,22 +33,30 @@
 \tikzstyle{start} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=yellow!30]
 \tikzstyle{proc} = [rectangle, rounded corners, minimum width=3cm, minimum
-height=1cm, text centered, draw=black, fill=blue!30]
+height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
 \tikzstyle{result} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=red!30]
-\tikzstyle{coord} = [circle, inner sep=0pt, minimum size=2pt, fill=red]
+\tikzstyle{coord} = [circle, inner sep=0pt]
 
 
 \begin{document}
 
-\begin{tikzpicture}
-    \matrix[row sep=5mm, column sep=1cm]{
+\begin{tikzpicture}[>=stealth, thick, black!50, text=black,
+                    every new ->/.style={shorten >=1pt},
+                    graphs/every graph/.style={edges=rounded corners},
+                    vert path/.style={to path={-| (\tikztotarget)}}]
+    \matrix [row sep=5mm, column sep=1cm] {
         \node (start) [start]  {\start}; & \node (p1)  [coord] {};        \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
         \node (p2)    [coord]  {};       & \node (p3)  [coord] {};        \\
         \node (vi)    [result] {\vi};    & \node (ang) [proc]  {\ang};    \\
-        \node (p3)    [coord]  {};       & \node (lim) [proc]  {\lim};    \\
+        \node (p4)    [coord]  {};       & \node (lim) [proc]  {\lim};    \\
         \node (res)   [result] {\res}; \\
+    };
+    \graph [use existing nodes] {
+        start -> [vert path] ene -> ang -> lim -> p4;
+        start -> dyn -> vi -> res;
+        p2 -> p3;
     };
 \end{tikzpicture}
 
