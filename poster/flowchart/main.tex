@@ -12,25 +12,34 @@
 \def\phiip{\dot{\phi}_{i+1}}
 \def\thetai{\dot{\theta}_i(\theta)}
 
+\def\start{Koordinaten}
+\def\dyn{Dynamik}
+\def\enconv{Energieerhaltung}
+\def\vi{$v_i$}
+\def\ang{$\dot{\theta}_i$}
+\def\lim{Grenzwert}
+\def\res{$v_*$}
+
 \tikzstyle{start} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=yellow!30]
 \tikzstyle{proc} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=blue!30]
 \tikzstyle{result} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{coord} = [circle, inner sep=0pt, minimum size=2pt, fill=red]
 
 
 \begin{document}
 
-\begin{tikzpicture}[node distance=3cm]
-    \node (start) [start] {Koordinaten};
-    \node (dyn) [proc, below of=start] {Dynamik};
-    \node (enconv) [proc, right of=dyn] {Energieerhaltung};
-    \node (tran) [result, below of=dyn] {$V_i$};
-    \node (ang) [proc, right of=tran] {$\dot{\theta}_i$};
-    \node (conv) [proc, below of=ang] {Grenzwert};
-    \node (res) [result, below left of=conv] {$V_*$};
-    
+\begin{tikzpicture}
+    \matrix[row sep=5mm, column sep=1cm]{
+        \node (start) [start]  {\start}; & \node (p1)  [coord] {};        \\
+        \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
+        \node (p2)    [coord]  {};       & \node (p3)  [coord] {};        \\
+        \node (vi)    [result] {\vi};    & \node (ang) [proc]  {\ang};    \\
+        \node (p3)    [coord]  {};       & \node (lim) [proc]  {\lim};    \\
+        \node (res)   [result] {\res}; \\
+    };
 \end{tikzpicture}
-    
+
 \end{document}
