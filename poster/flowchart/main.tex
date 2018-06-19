@@ -9,42 +9,52 @@
 \usetikzlibrary{shapes.geometric,arrows}
 \usetikzlibrary{graphs}
 
+\everymath{\displaystyle}
+
 \def\phii{\dot{\phi}_i}
 \def\phiip{\dot{\phi}_{i+1}}
 \def\thetai{\theta_i}
+\def\thetaim{\theta_{i-1}}
 \def\thetaid{\dot{\theta}_i}
 \def\thetainit{\dot{\theta}_i^{Initial}}
 \def\thetainitm{\dot{\theta}_{i-1}^{Initial}}
 \def\thetastoss{\dot{\theta}_{i-1}^{Stoß}}
 \def\thetadstar{\dot{\theta}_*}
 
-\def\start{
-    Koordinaten des i-ten Dominos: $\thetai, \thetaid$
+\newcommand{\funcof}[1]{
+    f\left(#1\right)
 }
-\def\dyn{
+
+\newcommand{\start}{
+    Koordinaten des i-ten Dominos: $\thetai, \thetaid$\\
+    Aus der Geometrie: $\thetaim = \funcof{\thetai}$
+}
+\newcommand{\dyn}{
     Dynamik des Problems liefert:
     $\thetaid = f\left(\thetainit, \theta\right)$
 }
-\def\enconv{
+\newcommand{\enconv}{
     Die Energie zwischen zwei Stößen ist erhalten:
     $\thetainit = f\left(\thetastoss\right)$
 }
-\def\ang{
+\newcommand{\ang}{
     Eine rekursive Folge für alle Dominos:
     $\thetainit = f\left(\thetainitm\right)$
 }
-\def\vi{
-    $v_i = \frac{d+w}{t_i},
+\newcommand{\vi}{$
+    v_i = \frac{d+w}{t_i},
     t_i = \int_0^{\theta^{Stoß}}
-    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)}$
-}
-\def\limang{
+    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)}
+$}
+\newcommand{\limang}{
     $\lim_{i \to \infty} \thetaid = \thetadstar$
 }
-\def\res{wie $v_i$}
+\newcommand{\res}{
+    $v_* = \frac{d+w}{t_*}$
+}
 
 \tikzstyle{start} = [rectangle, rounded corners, minimum width=3cm, minimum
-height=1cm, text centered, draw=black, fill=yellow!30]
+height=1cm, text centered, text width=4cm, draw=black, fill=yellow!30]
 \tikzstyle{proc} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
 \tikzstyle{result} = [rectangle, rounded corners, minimum width=3cm, minimum
@@ -57,7 +67,8 @@ height=1cm, text centered, draw=black, fill=red!30]
 \begin{tikzpicture}[>=stealth, thick, black!50, text=black,
                     every new ->/.style={shorten >=1pt},
                     graphs/every graph/.style={edges=rounded corners},
-                    vert path/.style={to path={-| (\tikztotarget)}}]
+                    vh path/.style={to path={-| (\tikztotarget)}},
+                    hv path/.style={to path={|- (\tikztotarget)}}]
     \matrix [row sep=5mm, column sep=1cm] {
         \node (start) [start]  {\start}; & \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
@@ -67,9 +78,9 @@ height=1cm, text centered, draw=black, fill=red!30]
         \node (res)   [result] {\res}; \\
     };
     \graph [use existing nodes] {
-        start -> [vert path] ene -> ang -> lim -> p4;
+        start -> [vh path] ene -> ang -> lim -> p4;
         start -> dyn -> vi -> res;
-        p2 -> p3;
+        dyn -> [hv path] p3;
     };
 \end{tikzpicture}
 
