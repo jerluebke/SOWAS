@@ -13,7 +13,10 @@
 \def\phiip{\dot{\phi}_{i+1}}
 \def\thetai{\theta_i}
 \def\thetaid{\dot{\theta}_i}
-\def\thetainit{\dot{\theta}_i^{initial}}
+\def\thetainit{\dot{\theta}_i^{Initial}}
+\def\thetainitm{\dot{\theta}_{i-1}^{Initial}}
+\def\thetastoss{\dot{\theta}_{i-1}^{Stoß}}
+\def\thetadstar{\dot{\theta}_*}
 
 \def\start{
     Koordinaten des i-ten Dominos: $\thetai, \thetaid$
@@ -21,14 +24,24 @@
 \def\dyn{
     Dynamik des Problems liefert:
     $\thetaid = f\left(\thetainit, \theta\right)$
-    $\left(\thetainit\text{: Anfangswert, }\theta\text{: beliebiger Winkel während
-    des Falls}\right)$
 }
-\def\enconv{Energieerhaltung}
-\def\vi{$v_i$}
-\def\ang{$\dot{\theta}_i$}
-\def\lim{Grenzwert}
-\def\res{$v_*$}
+\def\enconv{
+    Die Energie zwischen zwei Stößen ist erhalten:
+    $\thetainit = f\left(\thetastoss\right)$
+}
+\def\ang{
+    Eine rekursive Folge für alle Dominos:
+    $\thetainit = f\left(\thetainitm\right)$
+}
+\def\vi{
+    $v_i = \frac{d+w}{t_i},
+    t_i = \int_0^{\theta^{Stoß}}
+    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)}$
+}
+\def\limang{
+    $\lim_{i \to \infty} \thetaid = \thetadstar$
+}
+\def\res{wie $v_i$}
 
 \tikzstyle{start} = [rectangle, rounded corners, minimum width=3cm, minimum
 height=1cm, text centered, draw=black, fill=yellow!30]
@@ -46,11 +59,11 @@ height=1cm, text centered, draw=black, fill=red!30]
                     graphs/every graph/.style={edges=rounded corners},
                     vert path/.style={to path={-| (\tikztotarget)}}]
     \matrix [row sep=5mm, column sep=1cm] {
-        \node (start) [start]  {\start}; & \node (p1)  [coord] {};        \\
+        \node (start) [start]  {\start}; & \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
         \node (p2)    [coord]  {};       & \node (p3)  [coord] {};        \\
         \node (vi)    [result] {\vi};    & \node (ang) [proc]  {\ang};    \\
-        \node (p4)    [coord]  {};       & \node (lim) [proc]  {\lim};    \\
+        \node (p4)    [coord]  {};       & \node (lim) [proc]  {\limang}; \\
         \node (res)   [result] {\res}; \\
     };
     \graph [use existing nodes] {
