@@ -84,7 +84,7 @@
 }
 
 \tikzstyle{img} = [%
-    text width=6cm, 
+    text width=6.3cm, 
     inner sep=0cm,
     outer sep=0pt,
     align=center,
@@ -141,22 +141,23 @@
         vh path/.style={to path={|- (\tikztotarget)}},
         vhv path/.style={to path={-- ++(0,#1) -| (\tikztotarget)}}
     ]
-    \node [intro] {\asu};
     \matrix (table) [%
         matrix of nodes,
         nodes in empty cells,
         row sep=5mm,
         column sep=1cm
     ] {%
+        & \\ & \\ & \\ & \\ & \\ & \\ & \\
         \node (start) [start, yshift=-1cm]  {\start}; & \node (img) [img]   {\fig};    \\
         & \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
         & \node (p3)  [coord]  {}; \\
         \node (ti)    [proc]   {\ti};    & \node (ang) [proc]  {\ang};    \\
         & \node (lim) [proc]  {\limang}; \\
-        & \\ & \\ & \\ & \\
+        & \\ & \\ & \\ & \\ & \\
     };
-    \node (res) [result, fit=(table-7-1)(table-10-2)] {\res};
+    \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
+    \node (res) [result, fit=(table-14-1)(table-17-2)] {\res};
     \graph [use existing nodes, edges={thick, black!50}] {%
         start -> dyn -> ti -> [vhv path=-2.079cm] res;
         start -> [vhv path=-3.6cm] ene -> ang -> lim -> [hv path] res;
