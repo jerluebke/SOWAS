@@ -28,7 +28,7 @@ DOMINO_PROPS    = dict(height=4.2, width=0.6, energy_loss=0.9)
 PIECES          = 30
 INITIAL_VEL     = 0.8
 LABEL_EXP       = "Experiment"
-LABEL_TH        = "Theorie"
+LABEL_TH        = "gefittete Theorie"
 
 
 def main_compare(save=False):

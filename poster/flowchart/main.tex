@@ -5,9 +5,16 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{{../img/}}
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric,arrows}
-\usetikzlibrary{graphs}
+\usetikzlibrary{%
+    shapes.geometric,
+    arrows,
+    graphs,
+    fit,
+    matrix,
+}
 
 \everymath{\displaystyle}
 
@@ -19,68 +26,140 @@
 \def\thetainit{\dot{\theta}_i^{Initial}}
 \def\thetainitm{\dot{\theta}_{i-1}^{Initial}}
 \def\thetastoss{\dot{\theta}_{i-1}^{Stoß}}
-\def\thetadstar{\dot{\theta}_*}
+\def\thetadstar{\dot{\theta}_{as}}
 
-\newcommand{\funcof}[1]{
-    f\left(#1\right)
+\newcommand{\funcof}[2][f]{%
+    #1\left(#2\right)
+}
+\newcommand{\asu}{%
+    \textbf{Annahmen}
+    \begin{enumerate}
+        \item Die Dominos rotieren beim Fallen um einen festen Drehpunkt
+        \item Besteht die Reihe aus unendlich vielen fallenden Dominos, ist die
+            Energie des Systems erhalten
+        \item Die Stöße zwischen den Steinen sind inelastisch
+    \end{enumerate}
+    % \bigskip
+}
+\newcommand{\start}{%
+    Koordinaten des i-ten Dominos: \\
+    \centerline{$\funcof[\thetai]{t}, \funcof[\thetaid]{t}$}
+    \bigskip
+    Aus der Geometrie des Problems erhält man: \\
+    \centerline{$\thetaim = \funcof{\thetai}$}
+    \bigskip
+    Die Anstoßgeschwindigkeit $\dot{\theta}_1$ ist bekannt.
+}
+\newcommand{\dyn}{%
+    Dynamik des Problems liefert: \\
+    \centerline{$\thetaid = \funcof{\thetainit, \theta}$}
+}
+\newcommand{\enconv}{%
+    Die Energie zwischen zwei Stößen ist erhalten: \\
+    \centerline{$\thetainit = \funcof{\thetastoss}$}
+}
+\newcommand{\ang}{%
+    Eine rekursive Folge für alle Dominos: \\
+    \centerline{$\thetainit = \funcof{\thetainitm}$}
+}
+\newcommand{\ti}{%
+    Die Zeit zwischen zwei Stößen: \\
+    \centerline{$ t_i = \int_0^{\theta^{Stoß}}
+    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)} $}
+}
+\newcommand{\limang}{%
+    Diese Folge konvergiert: \\
+    \centerline{$\lim_{i \to \infty} \thetaid = \thetadstar$}
+}
+\newcommand{\res}{%
+    \textbf{Die Transversalgschwindigkeit:} \\ \bigskip
+    \dots des i-ten Dominos: $v_i = \frac{d+w}{t_i}$ \\ \medskip
+    \dots die asymptotische: $v_{as} = \frac{d+w}{t_{as}}$
+}
+\newcommand{\fig}{%
+    \includegraphics[width=\textwidth]{dominoes.png}
+    \textit{\footnotesize Abb. 1: Geometrie des Problems}
 }
 
-\newcommand{\start}{
-    Koordinaten des i-ten Dominos: $\thetai, \thetaid$\\
-    Aus der Geometrie: $\thetaim = \funcof{\thetai}$
-}
-\newcommand{\dyn}{
-    Dynamik des Problems liefert:
-    $\thetaid = f\left(\thetainit, \theta\right)$
-}
-\newcommand{\enconv}{
-    Die Energie zwischen zwei Stößen ist erhalten:
-    $\thetainit = f\left(\thetastoss\right)$
-}
-\newcommand{\ang}{
-    Eine rekursive Folge für alle Dominos:
-    $\thetainit = f\left(\thetainitm\right)$
-}
-\newcommand{\vi}{$
-    v_i = \frac{d+w}{t_i},
-    t_i = \int_0^{\theta^{Stoß}}
-    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)}
-$}
-\newcommand{\limang}{
-    $\lim_{i \to \infty} \thetaid = \thetadstar$
-}
-\newcommand{\res}{
-    $v_* = \frac{d+w}{t_*}$
-}
-
-\tikzstyle{start} = [rectangle, rounded corners, minimum width=3cm, minimum
-height=1cm, text centered, text width=4cm, draw=black, fill=yellow!30]
-\tikzstyle{proc} = [rectangle, rounded corners, minimum width=3cm, minimum
-height=1cm, text centered, text width=4cm, draw=black, fill=blue!30]
-\tikzstyle{result} = [rectangle, rounded corners, minimum width=3cm, minimum
-height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{img} = [%
+    text width=6cm, 
+    inner sep=0cm,
+    outer sep=0pt,
+    align=center,
+    anchor=north,
+]
+\tikzstyle{intro} = [
+    rectangle,
+    rounded corners,
+    minimum width=7cm,
+    minimum height=1cm,
+    draw=black,
+    fill=yellow!30
+]
+\tikzstyle{start} = [
+    rectangle,
+    rounded corners,
+    inner sep=2mm,
+    minimum width=3cm,
+    minimum height=1cm,
+    text width=4cm,
+    draw=black,
+    fill=yellow!30
+]
+\tikzstyle{proc} = [
+    rectangle,
+    rounded corners,
+    minimum width=3cm,
+    minimum height=1cm,
+    text width=4cm,
+    draw=black,
+    fill=blue!30
+]
+\tikzstyle{result} = [
+    rectangle,
+    rounded corners,
+    inner sep=14pt,
+    minimum width=8cm,
+    minimum height=1cm,
+    text width=10cm,
+    draw=black,
+    fill=red!30
+]
 \tikzstyle{coord} = [circle, inner sep=0pt]
 
+\pagenumbering{gobble}
 
 \begin{document}
 
-\begin{tikzpicture}[>=stealth, thick, black!50, text=black,
-                    every new ->/.style={shorten >=1pt},
-                    graphs/every graph/.style={edges=rounded corners},
-                    vh path/.style={to path={-| (\tikztotarget)}},
-                    hv path/.style={to path={|- (\tikztotarget)}}]
-    \matrix [row sep=5mm, column sep=1cm] {
-        \node (start) [start]  {\start}; & \\
+\begin{tikzpicture}[%
+        >=stealth, thick, black, text=black,
+        every new ->/.style={shorten >=1pt},
+        graphs/every graph/.style={edges=rounded corners},
+        hv path/.style={to path={-| (\tikztotarget)}},
+        vh path/.style={to path={|- (\tikztotarget)}},
+        vhv path/.style={to path={-- ++(0,#1) -| (\tikztotarget)}}
+    ]
+    \matrix (table) [%
+        matrix of nodes,
+        nodes in empty cells,
+        row sep=5mm,
+        column sep=1cm
+    ] {%
+        & \\ & \\ & \\ & \\ & \\ & \\ & \\
+        \node (start) [start, yshift=-1cm]  {\start}; & \node (img) [img]   {\fig};    \\
+        & \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
-        \node (p2)    [coord]  {};       & \node (p3)  [coord] {};        \\
-        \node (vi)    [result] {\vi};    & \node (ang) [proc]  {\ang};    \\
-        \node (p4)    [coord]  {};       & \node (lim) [proc]  {\limang}; \\
-        \node (res)   [result] {\res}; \\
+        & \node (p3)  [coord]  {}; \\
+        \node (ti)    [proc]   {\ti};    & \node (ang) [proc]  {\ang};    \\
+        & \node (lim) [proc]  {\limang}; \\
+        & \\ & \\ & \\ & \\ & \\
     };
-    \graph [use existing nodes] {
-        start -> [vh path] ene -> ang -> lim -> p4;
-        start -> dyn -> vi -> res;
-        dyn -> [hv path] p3;
+    \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
+    \node (res) [result, fit=(table-15-1)(table-18-2)] {\res};
+    \graph [use existing nodes, edges={thick, black!50}] {%
+        start -> dyn -> ti -> [vhv path=-2.4742cm] res;
+        start -> [vhv path=-3.6cm] ene -> ang -> lim -> [hv path] res;
+        dyn -> [vh path] p3;
     };
 \end{tikzpicture}
 
