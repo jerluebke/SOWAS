@@ -1,7 +1,9 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % flowchart to depict the theoretical procedure during
 % the SOWAS project 2018 at Ruhr-University Bochum
 % 
+% NOTE: Compile with LuaLaTeX or XeLaTeX, which support the fontspec package
+%
 % author: Jeremiah Lübke
 % date: 06.2018
 %
@@ -15,7 +17,7 @@
 
 \usepackage{standalone}
 \usepackage[ngerman]{babel}
-\usepackage[utf8]{inputenc}
+% \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -30,7 +32,10 @@
     matrix,
 }
 \usepackage{paralist}
+\usepackage{fontspec}
 
+\setmainfont[Ligatures=TeX]{Calibri}
+% \renewcommand{\familydefault}{\sfdefault}
 \everymath{\displaystyle}
 
 
@@ -43,7 +48,7 @@
 \def\thetaid{\dot{\theta}_i}
 \def\thetainit{\dot{\theta}_i^{Initial}}
 \def\thetainitm{\dot{\theta}_{i-1}^{Initial}}
-\def\thetastoss{\dot{\theta}_{i-1}^{Stoß}}
+\def\thetastoss{\dot{\theta}_{i-1}^{Stoss}}
 \def\thetadstar{\dot{\theta}_{as}}
 
 \newcommand{\funcof}[2][f]{%
@@ -53,7 +58,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%
 % Content of nodes  %
-%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\asu}{%
     \textbf{Annahmen}
@@ -93,7 +98,7 @@
 
 \newcommand{\ti}{%
     Die Zeit zwischen zwei Stößen: \\
-    \centerline{$ t_i = \int_0^{\theta^{Stoß}}
+    \centerline{$ t_i = \int_0^{\theta^{Stoss}}
     \frac{\mathrm{d}\theta}{\funcof[\thetaid]{\theta}} $}
 }
 
@@ -121,7 +126,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 
 \tikzstyle{img} = [%
-    text width=5.8cm, 
+    text width=5.8cm,
     inner sep=0cm,
     outer sep=0pt,
     align=center,
