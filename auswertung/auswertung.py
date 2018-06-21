@@ -66,10 +66,12 @@ def main_compare(save=False):
     ax[0].legend(loc="lower right", numpoints=2)
     ax[0].set(xlabel="x [$10^{-2}$ m]",
               ylabel="v [$\\frac{m}{s}$]",
-              title="Geschwindigkeitsverlauf für d = 3 cm")
+              #  title="Geschwindigkeitsverlauf für d = 3 cm")
+             )
     ax[1].set(xlabel="d [$10^{-2}$ m]",
               ylabel="v [$\\frac{m}{s}$]",
-              title="$v_{as}$ verschiedener Abstände")
+              #  title="$v_{as}$ verschiedener Abstände")
+             )
 
     if save:
         plt.tight_layout()

@@ -17,11 +17,10 @@
     fit,
     matrix,
 }
+\usepackage{paralist}
 
 \everymath{\displaystyle}
 
-\def\phii{\dot{\phi}_i}
-\def\phiip{\dot{\phi}_{i+1}}
 \def\thetai{\theta_i}
 \def\thetaim{\theta_{i-1}}
 \def\thetaid{\dot{\theta}_i}
@@ -33,16 +32,16 @@
 \newcommand{\funcof}[2][f]{%
     #1\left(#2\right)
 }
-% \newcommand{\asu}{%
-%     \textbf{Annahmen}
-%     \begin{enumerate}
-%         \item Die Dominos rotieren beim Fallen um einen festen Drehpunkt
-%         \item Besteht die Reihe aus unendlich vielen fallenden Dominos, ist die
-%             Energie des Systems erhalten
-%         \item Die Stöße zwischen den Steinen sind inelastisch
-%     \end{enumerate}
-%     % \bigskip
-% }
+\newcommand{\asu}{%
+    \textbf{Annahmen}
+    \begin{enumerate}
+        \item Die Dominos rotieren beim Fallen um einen festen Drehpunkt
+        \item Besteht die Reihe aus unendlich vielen fallenden Dominos, ist die
+            Energie des Systems erhalten
+        \item Die Stöße zwischen den Steinen sind inelastisch
+    \end{enumerate}
+    % \bigskip
+}
 \newcommand{\start}{%
     Koordinaten des i-ten Dominos: \\
     \centerline{$\funcof[\thetai]{t}, \funcof[\thetaid]{t}$}
@@ -57,7 +56,7 @@
     \centerline{$\thetaid = \funcof{\thetainit, \theta}$}
 }
 \newcommand{\enconv}{%
-    Die Energieerhaltung liefert: \\
+    Energieerhaltung liefert: \\
     \centerline{$\thetainit = \funcof{\thetastoss}$}
 }
 \newcommand{\ang}{%
@@ -67,7 +66,7 @@
 \newcommand{\ti}{%
     Die Zeit zwischen zwei Stößen: \\
     \centerline{$ t_i = \int_0^{\theta^{Stoß}}
-    \frac{\mathrm{d}\theta}{\thetaid\left(\theta\right)} $}
+    \frac{\mathrm{d}\theta}{\funcof[\thetaid]{\theta}} $}
 }
 \newcommand{\limang}{%
     Diese Folge konvergiert: \\
@@ -75,8 +74,10 @@
 }
 \newcommand{\res}{%
     \textbf{Die Transversalgschwindigkeit:} \\ \medskip
-    \dots des i-ten Dominos: $v_i = \frac{d+w}{t_i}$ \\ \smallskip
-    \dots die asymptotische: $v_{as} = \frac{d+w}{t_{as}}$
+    \begin{compactitem}
+        \item des i-ten Dominos: $v_i = \frac{d+w}{t_i}$ \\ \smallskip
+        \item die asymptotische: $v_{as} = \frac{d+w}{t_{as}}$
+    \end{compactitem}
 }
 \newcommand{\fig}{%
     \includegraphics[width=\textwidth]{dominoes.eps}
@@ -90,14 +91,14 @@
     align=center,
     anchor=north,
 ]
-% \tikzstyle{intro} = [
-%     rectangle,
-%     rounded corners,
-%     minimum width=7cm,
-%     minimum height=1cm,
-%     draw=black,
-%     fill=yellow!30
-% ]
+\tikzstyle{intro} = [
+    rectangle,
+    rounded corners,
+    minimum width=7cm,
+    minimum height=1cm,
+    draw=black,
+    fill=yellow!30
+]
 \tikzstyle{start} = [
     rectangle,
     rounded corners,
@@ -128,8 +129,6 @@
     fill=red!30
 ]
 \tikzstyle{coord} = [circle, inner sep=0pt]
-
-\pagenumbering{gobble}
 
 \begin{document}
 
