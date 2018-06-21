@@ -1,4 +1,16 @@
-% \documentclass[11pt,a4paper]{scrartcl}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% flowchart to depict the theoretical procedure during
+% the SOWAS project 2018 at Ruhr-University Bochum
+% 
+% author: Jeremiah Lübke
+% date: 06.2018
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+% Preamble  %
+%%%%%%%%%%%%%
+
 \documentclass[border=2pt, varwidth]{standalone}
 
 \usepackage{standalone}
@@ -21,6 +33,11 @@
 
 \everymath{\displaystyle}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definitions and commands for convenience  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \def\thetai{\theta_i}
 \def\thetaim{\theta_{i-1}}
 \def\thetaid{\dot{\theta}_i}
@@ -32,6 +49,12 @@
 \newcommand{\funcof}[2][f]{%
     #1\left(#2\right)
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% Content of nodes  %
+%%%%%%%%%%%%%%%%%%%%% 
+
 \newcommand{\asu}{%
     \textbf{Annahmen}
     \begin{enumerate}
@@ -42,6 +65,7 @@
     \end{enumerate}
     % \bigskip
 }
+
 \newcommand{\start}{%
     Koordinaten des i-ten Dominos: \\
     \centerline{$\funcof[\thetai]{t}, \funcof[\thetaid]{t}$}
@@ -51,27 +75,33 @@
     \bigskip
     Die Anstoßgeschwindigkeit $\dot{\theta}_1$ ist bekannt.
 }
+
 \newcommand{\dyn}{%
     Dynamik des Problems liefert: \\
     \centerline{$\thetaid = \funcof{\thetainit, \theta}$}
 }
+
 \newcommand{\enconv}{%
     Energieerhaltung liefert: \\
     \centerline{$\thetainit = \funcof{\thetastoss}$}
 }
+
 \newcommand{\ang}{%
     Eine rekursive Folge für alle Dominos: \\
     \centerline{$\thetainit = \funcof{\thetainitm}$}
 }
+
 \newcommand{\ti}{%
     Die Zeit zwischen zwei Stößen: \\
     \centerline{$ t_i = \int_0^{\theta^{Stoß}}
     \frac{\mathrm{d}\theta}{\funcof[\thetaid]{\theta}} $}
 }
+
 \newcommand{\limang}{%
     Diese Folge konvergiert: \\
     \centerline{$\lim_{i \to \infty} \thetaid = \thetadstar$}
 }
+
 \newcommand{\res}{%
     \textbf{Die Transversalgschwindigkeit:} \\ \medskip
     \begin{compactitem}
@@ -79,10 +109,16 @@
         \item die asymptotische: $v_{as} = \frac{d+w}{t_{as}}$
     \end{compactitem}
 }
+
 \newcommand{\fig}{%
     \includegraphics[width=\textwidth]{dominoes.eps}
     \textit{\footnotesize Abb. 1: Geometrie des Problems}
 }
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% node properties   %
+%%%%%%%%%%%%%%%%%%%%%
 
 \tikzstyle{img} = [%
     text width=5.8cm, 
@@ -91,6 +127,7 @@
     align=center,
     anchor=north,
 ]
+
 \tikzstyle{intro} = [
     rectangle,
     rounded corners,
@@ -99,6 +136,7 @@
     draw=black,
     fill=yellow!30
 ]
+
 \tikzstyle{start} = [
     rectangle,
     rounded corners,
@@ -109,6 +147,7 @@
     draw=black,
     fill=yellow!30
 ]
+
 \tikzstyle{proc} = [
     rectangle,
     rounded corners,
@@ -118,6 +157,7 @@
     draw=black,
     fill=blue!30
 ]
+
 \tikzstyle{result} = [
     rectangle,
     rounded corners,
@@ -128,7 +168,13 @@
     draw=black,
     fill=red!30
 ]
+
 \tikzstyle{coord} = [circle, inner sep=0pt]
+
+
+%%%%%%%%%%%%%
+% Document  %
+%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -140,28 +186,35 @@
         vh path/.style={to path={|- (\tikztotarget)}},
         vhv path/.style={to path={-- ++(0,#1) -| (\tikztotarget)}}
     ]
+
     \matrix (table) [%
         matrix of nodes,
-        nodes in empty cells,
-        row sep=5mm,
+        nodes in empty cells,   % <- to align additional nodes to spread over
+        row sep=3mm,            %    multiple rows/columns
         column sep=1cm
     ] {%
-        % & \\ & \\ & \\ & \\ & \\ & \\ & \\
-        \node (start) [start, yshift=-1cm]  {\start}; & \node (img) [img]   {\fig};    \\
-        & \\
-        \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
-        & \node (p3)  [coord]  {}; \\
-        \node (ti)    [proc]   {\ti};    & \node (ang) [proc]  {\ang};    \\
+        % & \\ & \\ & \\ & \\ & \\ & \\ & \\    % <- several empty rows for
+                                                %    `assumptions` node
+        \node (start)[start, yshift=-2cm]{\start}; & \node (img)[img]{\fig}; \\
+        & \\    % empty row
+        \node (dyn)   [proc]  {\dyn}; & \node (ene) [proc] {\enconv}; \\
+        & \node (p3)  [coord] {}; \\
+        \node (ti)    [proc]  {\ti};  & \node (ang) [proc] {\ang};    \\
         & \node (lim) [proc]  {\limang}; \\
-        & \\ & \\ & \\ & \\
+        & \\ & \\ & \\ & \\ & \\    % <- empty rows for `result` node
     };
-    % \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
-    \node (res) [result, fit=(table-7-1)(table-10-2)] {\res};
+
+    % additional nodes to be aligned over multiple rows/columns of above matrix
+    % \node [intro, fit=(table-1-1)(table-7-2)] {\asu};     % <- assumptions
+    \node (res) [result, fit=(table-7-1)(table-11-2)] {\res};   % <- result
+
+    % connecting nodes in matrix
     \graph [use existing nodes, edges={thick, black!50}] {%
-        start -> dyn -> ti -> [vhv path=-1.89cm] res;
-        start -> [vhv path=-3.6cm] ene -> ang -> lim -> [hv path] res;
+        start -> dyn -> ti -> [vhv path=-1.695cm] res;
+        start -> [vhv path=-2.6cm] ene -> ang -> lim -> [hv path] res;
         dyn -> [vh path] p3;
     };
+
 \end{tikzpicture}
 
 \end{document}
