@@ -1,4 +1,19 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Part of the SOWAS project 2018 at Ruhr-University
+
+This script computes the theoretical development of the transversal velocity
+of a chain of dominoes for a given fixed spacing
+
+For further details see also the docstring of `dominoes.py`
+From documenting each function was disregarded for reasons state in above
+file
+
+
+author: Jeremiah Lübke
+date: 06.2018
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt

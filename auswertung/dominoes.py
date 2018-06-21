@@ -1,5 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+Part of the SOWAS Project 2018 at Ruhr-Universtiy considering a chain of
+dominoes
+
+This script computes the theoretical asymptotical velocity for a fixed
+spacing
+
+From documenting each function was disregarded since this implementation is
+a direct translation of the associated theory into code. A presentation of
+the mathematics can be found in the dedicated .pdf-file 
+
+The `main` function serves as an example for usage and as a test case to
+quickly examine the outputted data
+
+
+author: Jeremiah Lübke
+date: 06.2018
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt

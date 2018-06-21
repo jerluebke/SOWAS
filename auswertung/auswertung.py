@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+This script creates the visualisation of the results of 2018s SOWAS Project at
+Ruhr-University
+Considered is a chain of evenly spaced and evenly shaped dominoes
 
+Two plots are drawn:
+    1. Development of transversal velocity for spacing=3cm along the x axis
+    (positions of dominoes in the chain)
+    2. Asymptotical velocities for different spacings
+
+Each plot compares experimental data taken during the project and theoretical
+data computed by associated programs
+
+
+author: Jeremiah Lübke
+date: 06.2018
+"""
+ 
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -32,7 +49,7 @@ LABEL_TH        = "gefittete Theorie"
 
 
 def main_compare(save=False):
-    # init calculations
+    # init calculations and get data
     v_vs_x.init(**DOMINO_PROPS, spacing=2.4, length=PIECES, initial=INITIAL_VEL)
     dominoes.init(**DOMINO_PROPS)
     pos         = np.arange(0, 90, 3)
@@ -76,4 +93,3 @@ def main_compare(save=False):
     if save:
         plt.tight_layout()
         plt.savefig("%s.png" % input("name: "), dpi=DPI)
-
