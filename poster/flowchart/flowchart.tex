@@ -84,7 +84,7 @@
 }
 
 \tikzstyle{img} = [%
-    text width=6cm, 
+    text width=5.8cm, 
     inner sep=0cm,
     outer sep=0pt,
     align=center,
@@ -104,7 +104,7 @@
     inner sep=2mm,
     minimum width=3cm,
     minimum height=1cm,
-    text width=4cm,
+    text width=4.8cm,
     draw=black,
     fill=yellow!30
 ]
@@ -113,7 +113,7 @@
     rounded corners,
     minimum width=3cm,
     minimum height=1cm,
-    text width=3.9cm,
+    text width=4.8cm,
     draw=black,
     fill=blue!30
 ]
@@ -159,7 +159,7 @@
     % \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
     \node (res) [result, fit=(table-7-1)(table-10-2)] {\res};
     \graph [use existing nodes, edges={thick, black!50}] {%
-        start -> dyn -> ti -> [vhv path=-2.079cm] res;
+        start -> dyn -> ti -> [vhv path=-1.89cm] res;
         start -> [vhv path=-3.6cm] ene -> ang -> lim -> [hv path] res;
         dyn -> [vh path] p3;
     };
