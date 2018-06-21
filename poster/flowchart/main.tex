@@ -33,16 +33,16 @@
 \newcommand{\funcof}[2][f]{%
     #1\left(#2\right)
 }
-\newcommand{\asu}{%
-    \textbf{Annahmen}
-    \begin{enumerate}
-        \item Die Dominos rotieren beim Fallen um einen festen Drehpunkt
-        \item Besteht die Reihe aus unendlich vielen fallenden Dominos, ist die
-            Energie des Systems erhalten
-        \item Die Stöße zwischen den Steinen sind inelastisch
-    \end{enumerate}
-    % \bigskip
-}
+% \newcommand{\asu}{%
+%     \textbf{Annahmen}
+%     \begin{enumerate}
+%         \item Die Dominos rotieren beim Fallen um einen festen Drehpunkt
+%         \item Besteht die Reihe aus unendlich vielen fallenden Dominos, ist die
+%             Energie des Systems erhalten
+%         \item Die Stöße zwischen den Steinen sind inelastisch
+%     \end{enumerate}
+%     % \bigskip
+% }
 \newcommand{\start}{%
     Koordinaten des i-ten Dominos: \\
     \centerline{$\funcof[\thetai]{t}, \funcof[\thetaid]{t}$}
@@ -90,14 +90,14 @@
     align=center,
     anchor=north,
 ]
-\tikzstyle{intro} = [
-    rectangle,
-    rounded corners,
-    minimum width=7cm,
-    minimum height=1cm,
-    draw=black,
-    fill=yellow!30
-]
+% \tikzstyle{intro} = [
+%     rectangle,
+%     rounded corners,
+%     minimum width=7cm,
+%     minimum height=1cm,
+%     draw=black,
+%     fill=yellow!30
+% ]
 \tikzstyle{start} = [
     rectangle,
     rounded corners,
@@ -147,7 +147,7 @@
         row sep=5mm,
         column sep=1cm
     ] {%
-        & \\ & \\ & \\ & \\ & \\ & \\ & \\
+        % & \\ & \\ & \\ & \\ & \\ & \\ & \\
         \node (start) [start, yshift=-1cm]  {\start}; & \node (img) [img]   {\fig};    \\
         & \\
         \node (dyn)   [proc]   {\dyn};   & \node (ene) [proc]  {\enconv}; \\
@@ -156,8 +156,8 @@
         & \node (lim) [proc]  {\limang}; \\
         & \\ & \\ & \\ & \\
     };
-    \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
-    \node (res) [result, fit=(table-14-1)(table-17-2)] {\res};
+    % \node [intro, fit=(table-1-1)(table-7-2)] {\asu};
+    \node (res) [result, fit=(table-7-1)(table-10-2)] {\res};
     \graph [use existing nodes, edges={thick, black!50}] {%
         start -> dyn -> ti -> [vhv path=-2.079cm] res;
         start -> [vhv path=-3.6cm] ene -> ang -> lim -> [hv path] res;
