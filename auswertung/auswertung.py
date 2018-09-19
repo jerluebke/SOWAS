@@ -25,6 +25,8 @@ import dominoes
 import v_vs_x
 
 mpl.rcParams["font.size"] = 22
+mpl.rcParams["font.family"] = "sans-serif"
+mpl.rcParams["font.sans-serif"] = "Calibri"
 mpl.rcParams["xtick.major.size"] = 6
 mpl.rcParams["xtick.major.width"] = 1.8
 mpl.rcParams["ytick.major.size"] = 6
@@ -76,11 +78,12 @@ def main_compare(save=False):
 
     # plot velocity vs spacing
     ax[1].errorbar(exp_data[::,0], exp_data[::,1], exp_data[::,2],
-                   **ERRORBAR_PROPS)
-    ax[1].plot(spacings, vel_all)
+                   **ERRORBAR_PROPS, label=LABEL_EXP)
+    ax[1].plot(spacings, vel_all, label=LABEL_TH)
 
     # text-related
-    ax[0].legend(loc="lower right", numpoints=2)
+    ax[0].legend(loc="lower left", numpoints=1)
+    ax[1].legend(loc="lower left", numpoints=1)
     ax[0].set(xlabel="x [$10^{-2}$ m]",
               ylabel="v [$\\frac{m}{s}$]",
               #  title="Geschwindigkeitsverlauf für d = 3 cm")
